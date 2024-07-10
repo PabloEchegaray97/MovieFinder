@@ -7,7 +7,7 @@ interface MovieItem {
   poster_path: string | null;
   title: string;
   overview: string;
-  id: number; // Agregar el campo 'id' para identificar cada película de manera única
+  id: number; 
 }
 
 interface MovieListProps {

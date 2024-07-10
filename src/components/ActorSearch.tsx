@@ -1,15 +1,16 @@
-// src/components/ActorSearch.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import ActorList from './ActorList';
+import { TextField, Button, Box } from '@mui/material';
 
 interface Actor {
     id: number;
     name: string;
+    profile_path: string | null;
 }
 
 const ActorSearch: React.FC = () => {
-    const [query, setQuery] = useState('');
+    const [query, setQuery] = useState<string>('');
     const [actors, setActors] = useState<Actor[]>([]);
     const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -27,22 +28,19 @@ const ActorSearch: React.FC = () => {
 
     return (
         <div>
-            <form onSubmit={handleSearch}>
-                <input
-                    type="text"
+            <Box component="form" onSubmit={handleSearch} display="flex" alignItems="center" mb={2}>
+                <TextField
+                    label="Buscar actor"
+                    variant="outlined"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Buscar actor"
+                    fullWidth
                 />
-                <button type="submit">Buscar</button>
-            </form>
-            <ul>
-                {actors.map((actor) => (
-                    <li key={actor.id}>
-                        <Link to={`/actor/${actor.id}`}>{actor.name}</Link>
-                    </li>
-                ))}
-            </ul>
+                <Button type="submit" variant="contained" color="primary" style={{ marginLeft: '10px' }}>
+                    Buscar
+                </Button>
+            </Box>
+            <ActorList actors={actors} />
         </div>
     );
 };
