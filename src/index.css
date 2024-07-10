@@ -20,7 +20,7 @@ background-color: red;;
   position: fixed;
 }
 .home {
-  padding-top: 1rem;
+  padding: 1rem;
 
 }
 .navbar-title {
@@ -29,5 +29,12 @@ background-color: red;;
 }
 .navbar-content {
   justify-content: space-between;
+  align-items: center;
+}
+.pagination {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: .5rem;
   align-items: center;
 }

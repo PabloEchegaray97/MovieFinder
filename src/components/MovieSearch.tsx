@@ -55,8 +55,6 @@ const MovieSearch: React.FC = () => {
             const response = await axios.get(url);
             const { results, total_pages } = response.data;
             setMovies(results);
-            console.log(results);
-            
             setTotalPages(total_pages);
         } catch (error) {
             console.error('Error al buscar películas:', error);
@@ -128,15 +126,17 @@ const MovieSearch: React.FC = () => {
 
             {movies.length > 0 && <MovieList movies={movies} />}
 
-            <div className="pagination">
-                <Button onClick={handlePrevPage} disabled={currentPage === 1}>
-                    Anterior
-                </Button>
-                <span>{`Página ${currentPage} de ${totalPages == 0 ? 1 : totalPages}`}</span>
-                <Button onClick={handleNextPage} disabled={currentPage === totalPages}>
-                    Siguiente
-                </Button>
-            </div>
+            {movies.length > 0 && (
+                <div className="pagination">
+                    <Button onClick={handlePrevPage} disabled={currentPage === 1}>
+                        Anterior
+                    </Button>
+                    <span>{`Página ${currentPage} de ${totalPages == 0 ? 1 : totalPages}`}</span>
+                    <Button onClick={handleNextPage} disabled={currentPage === totalPages}>
+                        Siguiente
+                    </Button>
+                </div>
+            )}
         </div>
     );
 };
