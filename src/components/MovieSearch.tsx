@@ -75,7 +75,9 @@ const MovieSearch: React.FC = () => {
 
     return (
         <div className="movie-search">
-            <FormControl fullWidth>
+            <Box className="movie-search-inputs">
+
+            <FormControl >
                 <InputLabel id="search-type-label">Tipo de Búsqueda</InputLabel>
                 <Select
                     labelId="search-type-label"
@@ -92,7 +94,7 @@ const MovieSearch: React.FC = () => {
                 <Box mt={2}>
                     <TextField
                         fullWidth
-                        label="Buscar películas..."
+                        label="Película"
                         variant="outlined"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
@@ -122,6 +124,7 @@ const MovieSearch: React.FC = () => {
                 <Button variant="contained" color="primary" onClick={handleSearch}>
                     Buscar
                 </Button>
+            </Box>
             </Box>
 
             {movies.length > 0 && <MovieList movies={movies} />}

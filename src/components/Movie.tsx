@@ -10,7 +10,7 @@ interface MovieProps {
 
 const Movie: React.FC<MovieProps> = ({ posterPath, title }) => {
     return (
-        <Card sx={{ maxWidth: '15rem', height: '20rem', position: 'relative' }}>
+        <Card sx={{ maxWidth: '18rem', height: '21rem', position: 'relative' }}>
             <CardMedia
                 component="img"
                 height="100%"

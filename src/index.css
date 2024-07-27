@@ -4,37 +4,109 @@
   margin: 0;
 }
 
-.movie-poster{
+.movie-poster {
   height: 20rem;
 }
+
 .movie-list {
   margin: 1rem;
 }
-.movie-details {
-background-color: red;;
-}
+
 .movie-details img {
   width: 30rem;
 }
+
 .navbar {
   position: fixed;
+  top: 0;
+  width: 100%;
+  transition: top 0.3s; 
 }
+
 .home {
   padding: 1rem;
-
 }
+
 .navbar-title {
   text-decoration: none;
   color: white;
+  display: flex;
+  align-items: center;
 }
+
 .navbar-content {
   justify-content: space-between;
   align-items: center;
+  position: relative; /* Necesario para posicionar el botón de alternar */
 }
+
 .pagination {
   display: flex;
   width: 100%;
   justify-content: center;
   gap: .5rem;
   align-items: center;
+}
+
+.movie-search-inputs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 10rem;
+}
+
+.css-jcwuwq-MuiButtonBase-root-MuiButton-root {
+  width: 100%;
+}
+
+.search-options {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+
+@media (max-width: 768px) {
+  .navbar-content {
+    flex-direction: column;
+  }
+
+  .search-options {
+    flex-direction: column;
+    width: 100%;
+    margin-top: .5rem;
+    display: none; 
+  }
+
+  .search-options.expanded {
+    display: flex; 
+  }
+
+  .navbar-title {
+    margin-top: .5rem;
+  }
+
+  .toggle-button {
+    display: block; 
+    position: absolute;
+    bottom: 1rem; 
+    right: 1rem; 
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+    z-index: 1000; 
+  }
+
+  .navbar-expanded .toggle-button {
+    display: block; 
+  }
+}
+
+
+@media (min-width: 769px) {
+  .toggle-button {
+    display: none;
+  }
 }
