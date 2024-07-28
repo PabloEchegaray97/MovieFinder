@@ -103,6 +103,7 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
                         onChange={() => setDarkMode(!darkMode)}
                         icon={<Brightness7Icon />}
                         checkedIcon={<Brightness4Icon />}
+                        className="xd"
                     />
                 </Box>
                 {isMobile && (
