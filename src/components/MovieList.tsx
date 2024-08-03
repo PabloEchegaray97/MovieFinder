@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Movie from './Movie';
-import Grid from '@mui/material/Grid';
+import { Box } from '@mui/material';
 
 interface MovieItem {
   poster_path: string | null;
@@ -16,18 +16,18 @@ interface MovieListProps {
 
 const MovieList: React.FC<MovieListProps> = ({ movies }) => {
   return (
-    <Grid container spacing={2} justifyContent="flex-start" wrap="wrap" className="movie-list">
+    <Box className="movie-list">
       {movies.map((movie) => (
-        <Grid item key={movie.id} xs={6} sm={4} md={2}>
-          <Link to={`/movie/${movie.id}`} className="movie-link" style={{ textDecoration: 'none' }}>
+        <Box className="movie-item">
+          <Link to={`/movie/${movie.id}`} className="movie-link">
             <Movie
               posterPath={movie.poster_path}
               title={movie.title}
             />
           </Link>
-        </Grid>
+        </Box>
       ))}
-    </Grid>
+    </Box>
   );
 };
 

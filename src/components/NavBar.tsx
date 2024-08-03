@@ -12,7 +12,9 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Link } from 'react-router-dom';
 import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
-import { Button, InputLabel, TextField } from '@mui/material';
+import { Button, InputLabel, TextField, IconButton, Collapse } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 interface NavBarProps {
     darkMode: boolean;
@@ -27,16 +29,6 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
     const [searchType, setSearchType] = useState<string>('movie');
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [expanded, setExpanded] = useState<boolean>(false);
-    const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
 
     useEffect(() => {
         if (navbarRef.current) {
@@ -55,19 +47,44 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
     };
 
     const handleToggleExpand = () => {
-        setExpanded(prev => !prev);
+        setExpanded((prev) => !prev);
     };
 
     return (
-        <AppBar className={`navbar ${expanded ? 'navbar-expanded' : ''}`} ref={navbarRef}>
-            <Toolbar className='navbar-content'>
-                <Link to="/" className='navbar-title'>
-                    <LocalMoviesIcon sx={{ mr: 1 }} />
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        MovieFinder
-                    </Typography>
-                </Link>
-                <Box className={`search-options ${expanded ? 'expanded' : ''}`}>
+        <AppBar
+            ref={navbarRef}
+            sx={{
+                transition: 'background 0.3s ease',
+                backgroundColor: darkMode ? 'rgba(0, 0, 0, 0.7)' : 'rgba(255, 255, 255, 0.9)',
+                color: darkMode ? 'white' : 'black',
+            }}
+        >
+            <Toolbar className="navbar-content">
+                <Box className="navbar-logo-container" sx={{ color: darkMode ? 'white' : 'black' }}>
+                    <Link to="/" className="navbar-title" style={{ display: 'flex', alignItems: 'center', color: darkMode ? 'white' : 'black' }}>
+                        <LocalMoviesIcon sx={{ mr: 1, color: darkMode ? 'white' : 'black' }} />
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: darkMode ? 'white' : 'black' }}>
+                            MovieFinder
+                        </Typography>
+                    </Link>
+
+                    <Box display="flex" alignItems="center">
+                        <Switch
+                            checked={darkMode}
+                            onChange={() => setDarkMode(!darkMode)}
+                            icon={<Brightness7Icon sx={{ color: darkMode ? 'white' : 'black' }} />}
+                            checkedIcon={<Brightness4Icon sx={{ color: darkMode ? 'white' : 'black' }} />}
+                        />
+                    </Box>
+                </Box>
+
+                <IconButton onClick={handleToggleExpand} sx={{ color: darkMode ? 'white' : 'black' }}>
+                    {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                </IconButton>
+            </Toolbar>
+
+            <Collapse in={expanded} className='search-options-container'>
+                <Box className="search-options" px={2} pb={2}>
                     <FormControl variant="outlined" size="small" fullWidth>
                         <InputLabel id="search-type-label">Buscar por</InputLabel>
                         <Select
@@ -86,32 +103,24 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
                         label="Buscar"
                         type="search"
                         variant="outlined"
-                        size='small'
-                        className='search-input'
+                        size="small"
+                        className="search-input"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         fullWidth
+                        sx={{ mt: 2 }}
                     />
-                    <Button variant="contained" color="primary" onClick={handleSearch}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSearch}
+                        sx={{ mt: 2 }}
+                        fullWidth
+                    >
                         Buscar
                     </Button>
                 </Box>
-                
-                <Box display="flex" alignItems="center" >
-                    <Switch
-                        checked={darkMode}
-                        onChange={() => setDarkMode(!darkMode)}
-                        icon={<Brightness7Icon />}
-                        checkedIcon={<Brightness4Icon />}
-                        className="xd"
-                    />
-                </Box>
-                {isMobile && (
-                    <Button className="toggle-button" onClick={handleToggleExpand}>
-                        {expanded ? '▲' : '▼'}
-                    </Button>
-                )}
-            </Toolbar>
+            </Collapse>
         </AppBar>
     );
 };

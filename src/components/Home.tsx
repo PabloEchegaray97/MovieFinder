@@ -28,7 +28,7 @@ const Home: React.FC<HomeProps> = ({ searchResults, searchType, currentPage, tot
       </Box>
       {searchType === 'movie' && hasSearched && (
         <Box display="flex" flexDirection="column" alignItems="center" mt={2}>
-          <Typography variant="body1" mb={2}>
+          <Typography variant="body1" mb={2} className='mtop'>
             Página {currentPage} de {displayTotalPages}
           </Typography>
           <Box display="flex" gap={2}>

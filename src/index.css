@@ -3,7 +3,17 @@
   padding: 0;
   margin: 0;
 }
+.home {
+  padding-top: calc(var(--navbar-height) + 1rem);
+}
 
+.navbar {
+  --navbar-height: 64px; /* Altura comprimida del NavBar */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: top 0.3s;
+}
 .movie-poster {
   height: 20rem;
 }
@@ -13,10 +23,9 @@
   top: 0;
   width: 100%;
   transition: top 0.3s; 
-}
+  background: linear-gradient(180deg, rgba(36,36,36,1) 0%, rgba(36,36,36, 0.9) 81%) !important;
+  box-shadow: none !important;
 
-.home {
-  padding: 1rem;
 }
 
 .navbar-title {
@@ -29,7 +38,7 @@
 .navbar-content {
   justify-content: space-between;
   align-items: center;
-  position: relative; /* Necesario para posicionar el botón de alternar */
+  position: relative; 
 }
 
 .pagination {
@@ -53,78 +62,34 @@
 
 .search-options {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: .5rem;
+  width: 50vw;
 }
-
+.search-options-container {
+  align-self: center;
+}
+.navbar-logo-container {
+  display: flex;
+}
 @media (max-width: 768px) {
-  .xd {
-    position: absolute !important;
-    left: 0;
-    top: 0;
-  }
-  .navbar-content {
-    flex-direction: column;
-    justify-content: center;
-    padding: 1rem;
-  }
-
-  .search-options {
-    flex-direction: column;
-    width: 100%;
-    margin-top: .5rem;
-    display: none; 
-  }
-
-  .search-options.expanded {
-    display: flex; 
-  }
-
-  .navbar-title {
-    margin-top: .5rem;
-  }
   
-  .toggle-button {
-    display: block; 
-    position: absolute;
-    bottom: 1rem; 
-    right: 1rem; 
-    background: transparent;
-    border: none;
-    font-size: .9rem !important;
-    color: white;
-    cursor: pointer;
-    z-index: 1000; 
-  }
-
-  .navbar-expanded .toggle-button {
-    display: block; 
-  }
-  
-  .navbar.expanded .navbar-content {
-    flex-direction: column; 
-  }
-
-
-  
+}
+@media (max-width: 768px) {
   .movie-overview {
     width: 100% !important;
   }
-}
-
-@media (min-width: 769px) {
-  .toggle-button {
-    display: none;
+  .search-options {
+    width: 90vw;
   }
 }
 
 /*movie details*/
 .movie-backdrop {
-  position: absolute;
+  position: sticky;
   top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   object-fit: cover;
   z-index: -1;
 }
@@ -142,22 +107,19 @@
   margin-top: -.9rem;
 }
 
-.home {
-  margin: .5rem;
-}
+
 
 .movie-details-container {
-  padding: 1rem;
-  background-color: rgba(20, 24, 72, 0.5); 
+  position: relative;
   height: 100%;
 }
 
 .mtop {
-  margin-top: 1rem;
+  margin-top: 1rem !important;
 }
 
 .mbottom {
-  margin-bottom: 1rem;
+  margin-bottom: 1rem !important;
 }
 
 .sec-font {
@@ -173,4 +135,92 @@
   top: 0;
   right: 0;
   margin-top: .4rem !important;
+}
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  
+}
+
+.movie-item {
+  width: 16rem;
+  height: 20rem;
+  margin-top: 1rem;
+}
+
+.movie-link {
+  text-decoration: none; /* Quitar subrayado de los enlaces */
+  color: inherit; /* Heredar el color del texto */
+}
+
+.movie-link:hover {
+  /* Estilo al pasar el ratón por encima */
+}
+.toggle-buttons-container, .jcenter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.movie-details-container {
+  position: relative;
+  overflow: hidden; /* Asegura que el contenido no salga del contenedor */
+}
+
+.movie-backdrop {
+  position: fixed; /* Fija la imagen en la pantalla */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; /* Asegura que esté detrás del contenido */
+  opacity: 0.3; /* Ajusta la opacidad si quieres un efecto de fondo más sutil */
+}
+
+.movie-details {
+  position: relative; /* Permite que los hijos se posicionen relativos a este contenedor */
+  padding: 2rem; /* Añade un padding para que el contenido no esté encima del fondo */
+  z-index: 1; /* Asegura que el contenido se muestre sobre el fondo */
+  color: white; /* Asegura que el texto sea visible sobre el fondo */
+  margin-top: calc(var(--navbar-height) + 1rem); /* Ajusta el margen superior para el espacio del NavBar */
+}
+
+.movie-title {
+  font-size: 3.5rem;
+}
+
+.movie-overview {
+  width: 50%;
+}
+
+.movie-info {
+  font-size: 0.9rem;
+  margin-top: -0.9rem;
+}
+.css-zryp6 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.movie-details-text {
+  width: 65vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.movie-data {
+  display: flex;
+}
+.movie-poster-container {
+  width: 35vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.movie-poster {
+  height: 30rem;
 }

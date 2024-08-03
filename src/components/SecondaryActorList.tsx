@@ -23,7 +23,7 @@ const SecondaryActorList: React.FC<SecondaryActorListProps> = ({ actors }) => {
 
     return (
         <Box>
-            <Box display="flex" flexWrap="wrap" gap={1}>
+            <Box display="flex" flexWrap="wrap" gap={1} justifyContent="center">
                 {actors.slice(0, 6).map((actor) => (
                     <Chip
                         key={actor.id}

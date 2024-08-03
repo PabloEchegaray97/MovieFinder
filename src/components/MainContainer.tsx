@@ -7,7 +7,7 @@ interface MainContainerProps {
 
 const MainContainer: React.FC<MainContainerProps> = ({ navbarHeight, children }) => {
     return (
-        <div style={{ marginTop: navbarHeight, height: `calc(100vh - ${navbarHeight}px)`, overflowY: 'auto' }}>
+        <div style={{ marginTop: navbarHeight}}>
             {children}
         </div>
     );
