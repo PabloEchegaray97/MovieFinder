@@ -10,13 +10,13 @@ interface MovieProps {
 
 const Movie: React.FC<MovieProps> = ({ posterPath, title }) => {
     return (
-        <Card sx={{ maxWidth: '18rem', height: '21rem', position: 'relative' }}>
+        <Card sx={{ height: '21rem', position: 'relative' }}>
             <CardMedia
                 component="img"
                 height="100%"
-                image={posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : 'not-available-es.png'}
+                image={posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : '/images/not-available-es.png'}
                 alt={posterPath ? `Poster de ${title}` : 'Imagen no disponible'}
-                sx={{ objectFit: 'cover' }}
+                sx={{ objectFit: 'cover', width: '16rem' }}
             />
             <Typography
                 sx={{
@@ -28,7 +28,7 @@ const Movie: React.FC<MovieProps> = ({ posterPath, title }) => {
                     color: 'white',
                     padding: '8px',
                     textAlign: 'center',
-                    fontSize:'.8rem'
+                    fontSize: '.8rem'
                 }}
                 gutterBottom
             >

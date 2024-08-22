@@ -64,7 +64,7 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
                     <Link to="/" className="navbar-title" style={{ display: 'flex', alignItems: 'center', color: darkMode ? 'white' : 'black' }}>
                         <LocalMoviesIcon sx={{ mr: 1, color: darkMode ? 'white' : 'black' }} />
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: darkMode ? 'white' : 'black' }}>
-                            MovieFinder
+                            <span className='text-italic mright-text'>Moviefinder</span>
                         </Typography>
                     </Link>
 

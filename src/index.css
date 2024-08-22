@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 * {
   box-sizing: border-box;
   padding: 0;
@@ -8,12 +9,14 @@
 }
 
 .navbar {
-  --navbar-height: 64px; /* Altura comprimida del NavBar */
+  --navbar-height: 64px;
+  /* Altura comprimida del NavBar */
   position: fixed;
   top: 0;
   width: 100%;
   transition: top 0.3s;
 }
+
 .movie-poster {
   height: 11rem;
 }
@@ -22,8 +25,8 @@
   position: fixed;
   top: 0;
   width: 100%;
-  transition: top 0.3s; 
-  background: linear-gradient(180deg, rgba(36,36,36,1) 0%, rgba(36,36,36, 0.9) 81%) !important;
+  transition: top 0.3s;
+  background: linear-gradient(180deg, rgba(36, 36, 36, 1) 0%, rgba(36, 36, 36, 0.9) 81%) !important;
   box-shadow: none !important;
 
 }
@@ -38,7 +41,7 @@
 .navbar-content {
   justify-content: space-between;
   align-items: center;
-  position: relative; 
+  position: relative;
 }
 
 .pagination {
@@ -67,16 +70,17 @@
   width: 50vw;
   padding: .4rem 0;
 }
+
 .search-options-container {
   align-self: center;
   transition: 0.3s ease !important;
 }
+
 .navbar-logo-container {
   display: flex;
 }
-@media (max-width: 768px) {
-  
-}
+
+@media (max-width: 768px) {}
 
 
 /*movie details*/
@@ -117,30 +121,35 @@
 .mbottom {
   margin-bottom: 1rem !important;
 }
+
 .mtop-m {
   margin-top: -.4rem !important;
 }
+
 .sec-font {
   font-size: .9rem;
 }
+
 .navbar {
   width: 100%;
 }
+
 .toggle-button {
-  display: block; 
+  display: block;
   position: absolute !important;
   height: 2rem;
   top: 0;
   right: 0;
   margin-top: .4rem !important;
 }
+
 .movie-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
   margin-bottom: 1rem;
-  
+
 }
 
 .movie-item {
@@ -150,40 +159,54 @@
 }
 
 .movie-link {
-  text-decoration: none; /* Quitar subrayado de los enlaces */
-  color: inherit; /* Heredar el color del texto */
+  text-decoration: none;
+  /* Quitar subrayado de los enlaces */
+  color: inherit;
+  /* Heredar el color del texto */
 }
 
 .movie-link:hover {
   /* Estilo al pasar el ratón por encima */
 }
-.toggle-buttons-container, .jcenter {
+
+.toggle-buttons-container,
+.jcenter {
   width: 100%;
   display: flex;
   justify-content: center;
 }
+
 .movie-details-container {
   position: relative;
-  overflow: hidden; /* Asegura que el contenido no salga del contenedor */
+  overflow: hidden;
+  /* Asegura que el contenido no salga del contenedor */
 }
 
 .movie-backdrop {
-  position: fixed; /* Fija la imagen en la pantalla */
+  position: fixed;
+  /* Fija la imagen en la pantalla */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -1; /* Asegura que esté detrás del contenido */
-  opacity: 0.3; /* Ajusta la opacidad si quieres un efecto de fondo más sutil */
+  z-index: -1;
+  /* Asegura que esté detrás del contenido */
+  opacity: 0.3;
+  /* Ajusta la opacidad si quieres un efecto de fondo más sutil */
 }
 
 .movie-details {
-  position: relative; /* Permite que los hijos se posicionen relativos a este contenedor */
-  padding: 2rem; /* Añade un padding para que el contenido no esté encima del fondo */
-  z-index: 1; /* Asegura que el contenido se muestre sobre el fondo */
-  color: white; /* Asegura que el texto sea visible sobre el fondo */
-  margin-top: calc(var(--navbar-height) + 1rem); /* Ajusta el margen superior para el espacio del NavBar */
+  position: relative;
+  /* Permite que los hijos se posicionen relativos a este contenedor */
+  padding: 2rem;
+  /* Añade un padding para que el contenido no esté encima del fondo */
+  z-index: 1;
+  /* Asegura que el contenido se muestre sobre el fondo */
+  color: white;
+  /* Asegura que el texto sea visible sobre el fondo */
+  margin-top: calc(var(--navbar-height) + 1rem);
+  /* Ajusta el margen superior para el espacio del NavBar */
 }
 
 .movie-title {
@@ -198,20 +221,24 @@
   font-size: 0.9rem;
   margin-top: -0.9rem;
 }
+
 .css-zryp6 {
   width: 100%;
   display: flex;
   justify-content: center;
 }
+
 .movie-details-text {
   width: 65vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+
 .movie-data {
   display: flex;
 }
+
 .movie-poster-container {
   width: 35vw;
   height: 100%;
@@ -219,6 +246,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .movie-poster {
   height: 25rem;
 }
@@ -227,33 +255,41 @@
   .movie-overview {
     width: 100% !important;
   }
+
   .search-options {
     width: 90vw;
   }
+
   .movie-data {
     flex-direction: column-reverse;
     align-items: center;
   }
+
   .movie-details-text {
     width: 90vw;
   }
+
   .movie-poster {
     height: 19rem;
   }
+
   .movie-title {
     font-size: 1.3rem !important;
     text-align: center;
     line-height: 1.2 !important;
     margin-top: 1rem !important;
   }
+
   .movie-info {
     text-align: center;
   }
 }
+
 .actor-details-container {
   position: relative;
   overflow: hidden;
 }
+
 .actor-details {
   position: relative;
   padding: 2rem;
@@ -262,15 +298,64 @@
   margin-top: calc(var(--navbar-height) + 1rem);
   display: flex;
 }
+
 .actor-details-text {
-  width: 75vw;
+  width: 75vw !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
 .actor-title {
   font-size: 2rem;
 }
+
 .actor-data {
   display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2rem;
 }
+.actor-data-text {
+  width: 80%;
+}
+
 .actor-details-poster {
-  width: 25vw;
+  padding-top: 1rem;
+  width: 25vw !important;
+  height: 100%;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+}
+
+.actor-poster {
+  height: 17rem;
+}
+.person-movies-text {
+  text-align: center;
+}
+.link {
+  text-decoration: none;
+  background-color: rgba(152, 152, 152, 0.9);
+  padding: .2rem;
+  border-radius: .5rem !important;
+  color: black;
+}
+.actor-details-info {
+  text-align: start;
+}
+.text-italic {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.text-bold {
+  font-weight: 700;
+  font-style: italic;
+}
+.mright-text{
+  padding-right: .2rem !important;
 }
