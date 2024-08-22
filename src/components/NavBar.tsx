@@ -93,6 +93,7 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
                             value={searchType}
                             onChange={handleSearchTypeChange}
                             label="Buscar por"
+                            className='mod-select'
                         >
                             <MenuItem value="movie">Película</MenuItem>
                             <MenuItem value="person">Persona</MenuItem>

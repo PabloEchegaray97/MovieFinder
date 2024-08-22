@@ -155,7 +155,7 @@ const MovieDetails: React.FC = () => {
                         <Typography variant="h4" sx={{ color: theme.palette.text.primary }} className='movie-title'>
                             {movieDetails.title}
                         </Typography>
-                        <div className='movie-info mbottom'>
+                        <div className='movie-info mbottom mtop-m'>
                             <Typography variant="body1" sx={{ color: theme.palette.text.secondary }}>
                                 {`${new Date(movieDetails.release_date).getFullYear()} • ${formattedRuntime} • ${movieDetails.genres.map(genre => genre.name).join(', ')} • Clasificación: ${movieDetails.certification}`}
                             </Typography>
@@ -204,7 +204,7 @@ const MovieDetails: React.FC = () => {
                             color: showContent === 'suggestions' ? 'text.primary' : 'text.secondary', // Color del texto
                             backgroundColor: 'transparent', // Fondo transparente
                             '&.Mui-selected': {
-                                borderBottom: '0.2rem solid #000', // Asegura el border bottom al estar seleccionado
+                                borderBottom: `0.2rem solid ${theme.palette.text.primary}`, // Asegura el border bottom al estar seleccionado
                             },
                         }}
                     >
@@ -221,7 +221,7 @@ const MovieDetails: React.FC = () => {
                             color: showContent === 'details' ? 'text.primary' : 'text.secondary', // Color del texto
                             backgroundColor: 'transparent', // Fondo transparente
                             '&.Mui-selected': {
-                                borderBottom: '0.2rem solid #000', // Asegura el border bottom al estar seleccionado
+                                borderBottom: `0.2rem solid ${theme.palette.text.primary}`, // Asegura el border bottom al estar seleccionado
                             },
                         }}
                     >

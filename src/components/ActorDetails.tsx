@@ -47,15 +47,21 @@ const ActorDetails: React.FC = () => {
     }
 
     return (
-        <div className="actor-details">
-            <h2>{actorDetails.name}</h2>
-            {actorDetails.profile_path && (
-                <img
-                    src={`https://image.tmdb.org/t/p/w500${actorDetails.profile_path}`}
-                    alt={actorDetails.name}
-                />
-            )}
-            <p>{actorDetails.biography}</p>
+        <div className="actor-details-container">
+            <div className="actor-details">
+                <div className="actor-details-text">
+                    <h2 className='actor-title'>{actorDetails.name}</h2>
+                    <p className='actor-data'>{actorDetails.biography}</p>
+                </div>
+                <div className="actor-details-poster">
+                    {actorDetails.profile_path && (
+                        <img
+                            src={`https://image.tmdb.org/t/p/w500${actorDetails.profile_path}`}
+                            alt={actorDetails.name}
+                        />
+                    )}
+                </div>
+            </div>
             <h3>Películas:</h3>
             <div className="movie-list">
                 {actorDetails.movie_credits.cast.map((movie) => (
