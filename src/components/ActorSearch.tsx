@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import ActorList from './ActorList';
-import { TextField, Button, Box } from '@mui/material';
+import { TextField, Button, Box, Skeleton } from '@mui/material';
 
 interface Actor {
     id: number;

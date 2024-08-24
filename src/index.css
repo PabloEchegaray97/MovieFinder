@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
+
 .home {
   padding-top: calc(var(--navbar-height) + 1rem);
 }
@@ -19,7 +21,11 @@
 
 .movie-poster {
   height: 11rem;
+  box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.51);
+  -webkit-box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.51);
+  -moz-box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.51);
 }
+
 
 .navbar {
   position: fixed;
@@ -319,6 +325,7 @@
   align-items: center;
   padding: 0 2rem;
 }
+
 .actor-data-text {
   width: 80%;
 }
@@ -334,9 +341,11 @@
 .actor-poster {
   height: 17rem;
 }
+
 .person-movies-text {
   text-align: center;
 }
+
 .link {
   text-decoration: none;
   background-color: rgba(152, 152, 152, 0.9);
@@ -344,18 +353,57 @@
   border-radius: .5rem !important;
   color: black;
 }
+
 .actor-details-info {
   text-align: start;
 }
+
 .text-italic {
   font-family: "Pacifico", cursive;
-  font-weight: 400;
-  font-style: normal;
+  font-weight: 300;
+  font-style: italic;
 }
+
 .text-bold {
   font-weight: 700;
   font-style: italic;
 }
-.mright-text{
+.text-thin {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+.mright-text {
   padding-right: .2rem !important;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: .5rem;
+}
+
+.css-xx7l7s-MuiCardMedia-root {
+  width: 18rem !important;
+}
+.modal-content {
+  background: linear-gradient(180deg, rgba(36, 36, 36, 1) 0%, rgba(36, 36, 36, 0.9) 81%) !important;
+  padding: 1rem;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 24vw;
+  height: 70vh;
+}
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

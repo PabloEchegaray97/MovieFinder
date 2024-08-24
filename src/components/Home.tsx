@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import MovieList from './MovieList';
 import ActorList from './ActorList';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography, Pagination, Skeleton } from '@mui/material';
 import { MovieItem, Actor } from '../types';
 
 interface HomeProps {
@@ -9,44 +9,49 @@ interface HomeProps {
   searchType: string;
   currentPage: number;
   totalPages: number;
-  onPageChange: (direction: 'next' | 'prev') => void;
+  onPageChange: (page: number) => void; // Cambiado para aceptar el número de página directamente
+  isLoading: boolean; // Nuevo prop para manejar el estado de carga
 }
 
-const Home: React.FC<HomeProps> = ({ searchResults, searchType, currentPage, totalPages, onPageChange }) => {
-  const [hasSearched, setHasSearched] = useState<boolean>(false);
+const Home: React.FC<HomeProps> = ({ searchResults, searchType, currentPage, totalPages, onPageChange, isLoading }) => {
+  const [hasSearched, setHasSearched] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     setHasSearched(searchResults.length > 0);
   }, [searchResults]);
 
-  const displayTotalPages = totalPages > 0 ? totalPages : 1; 
+  useEffect(() => {
+    // Scroll al principio de la página cuando cambie el número de página
+    window.scrollTo(0, 0);
+  }, [currentPage]);
 
   return (
     <section className='home'>
       <Box mb={2}>
-        {searchType === 'movie' ? <MovieList movies={searchResults as MovieItem[]} /> : <ActorList actors={searchResults as Actor[]} />}
+        {isLoading ? (
+          <div className='flex-center'>
+            <Skeleton variant="rectangular" width="90%" height="30rem" />
+          </div>
+        ) : searchType === 'movie' ? (
+          <MovieList movies={searchResults as MovieItem[]} />
+        ) : (
+          <ActorList actors={searchResults as Actor[]} />
+        )}
       </Box>
       {searchType === 'movie' && hasSearched && (
         <Box display="flex" flexDirection="column" alignItems="center" mt={2}>
-          <Typography variant="body1" mb={2} className='mtop'>
-            Página {currentPage} de {displayTotalPages}
+          <Typography variant="body1" mb={1} mt={2}>
+            Página {currentPage} de {totalPages}
           </Typography>
-          <Box display="flex" gap={2}>
-            <Button
-              variant="outlined"
-              disabled={currentPage === 1}
-              onClick={() => onPageChange('prev')}
-            >
-              Anterior
-            </Button>
-            <Button
-              variant="outlined"
-              disabled={currentPage === totalPages}
-              onClick={() => onPageChange('next')}
-            >
-              Siguiente
-            </Button>
-          </Box>
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={(_, page) => onPageChange(page)}
+            color="primary"
+            siblingCount={1}
+            boundaryCount={1}
+            sx={{marginBottom:"1rem"}}
+          />
         </Box>
       )}
     </section>

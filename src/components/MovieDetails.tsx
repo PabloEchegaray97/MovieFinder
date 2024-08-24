@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import MovieList from './MovieList';
 import SecondaryActorList from './SecondaryActorList';
-import { ToggleButton, ToggleButtonGroup, Box, Typography } from '@mui/material';
+import { ToggleButton, ToggleButtonGroup, Box, Typography, Skeleton } from '@mui/material';
 import 'flag-icons/css/flag-icons.min.css';
 import { useTheme } from '@mui/material/styles'; // Importa el hook useTheme
 
@@ -129,7 +129,45 @@ const MovieDetails: React.FC = () => {
     }, [id, apiKey, apiUrl]);
 
     if (!movieDetails) {
-        return <div>Cargando...</div>;
+        return (
+            <Box sx={{ padding: 2 }}>
+                <Box display="flex" alignItems="center" mb={2}>
+
+                    {/* Skeleton del cuadro de texto a la derecha */}
+                    <Box flex={1} >
+                        <Box display="flex" justifyContent="center" mb={2}>
+                            <Skeleton variant="text" height={40} width="50%" />
+                        </Box>
+                        <Skeleton variant="text" height={40} width="100%" />
+                        <Skeleton variant="text" height={40} width="100%" />
+                        <Skeleton variant="text" height={40} width="100%" />
+
+                    </Box>
+                    {/* Skeleton de la imagen a la izquierda */}
+                    <Box display="flex" alignItems="center" flexDirection="column">
+                        <Skeleton variant="rectangular" width={'20vw'} height={'22rem'} sx={{ marginRight: 2, marginLeft: 2 }} />
+                    </Box>
+                </Box>
+
+                <Box flex={1} >
+                    <Box display="flex" justifyContent="center" mb={2}>
+                        <Skeleton variant="text" height={40} width="50%" />
+                    </Box>
+                    <Skeleton variant="rectangular" height={'5rem'} width="100%" />
+                    <Box display="flex" justifyContent="center" mb={2}>
+                        <Skeleton variant="text" height={40} width="50%" sx={{marginTop:'2rem'}} />
+                    </Box>
+                    <Box display="flex" justifyContent="center" gap="1rem">
+                    <Skeleton variant="rectangular" height={'5rem'} width="20%"/>
+                    <Skeleton variant="rectangular" height={'5rem'} width="20%"/>
+                    <Skeleton variant="rectangular" height={'5rem'} width="20%" />
+                    <Skeleton variant="rectangular" height={'5rem'} width="20%" />
+                    </Box>
+                </Box>
+                {/* Skeleton para más texto debajo */}
+
+            </Box>
+        )
     }
 
     const formattedRuntime = `${Math.floor(movieDetails.runtime / 60)} h ${movieDetails.runtime % 60} min`;

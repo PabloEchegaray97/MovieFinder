@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MovieDetails from './components/MovieDetails';
 import ActorDetails from './components/ActorDetails';
 import axios from 'axios';
-import { MovieItem, Actor } from './types'; // Asegúrate de que esta importación sea correcta
+import { MovieItem, Actor } from './types';
 
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
@@ -21,6 +21,7 @@ const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [searchQuery, setSearchQuery] = useState<string>(''); // Agregado para mantener el query de búsqueda
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Nuevo estado para manejar la carga
 
   useEffect(() => {
     localStorage.setItem('darkMode', darkMode.toString());
@@ -35,7 +36,8 @@ const App: React.FC = () => {
   const handleSearch = async (type: string, query: string) => {
     setSearchType(type);
     setSearchQuery(query); // Guardar el query de búsqueda
-    setCurrentPage(1); // Reset page to 1 on new search
+    setCurrentPage(1); // Reset page a 1 en nuevo search
+    setIsLoading(true); // Activar el estado de carga
     const apiKey = import.meta.env.VITE_API_KEY;
     const apiUrl = import.meta.env.VITE_API_URL;
     let response;
@@ -59,9 +61,11 @@ const App: React.FC = () => {
       setSearchResults(response.data.results);
       setTotalPages(response.data.total_pages);
     }
+    setIsLoading(false); // Desactivar el estado de carga
   };
 
   const fetchMovies = async (page: number, query: string) => {
+    setIsLoading(true); // Activar el estado de carga
     const apiKey = import.meta.env.VITE_API_KEY;
     const apiUrl = import.meta.env.VITE_API_URL;
     const response = await axios.get(`${apiUrl}/search/movie`, {
@@ -73,17 +77,12 @@ const App: React.FC = () => {
     });
     setSearchResults(response.data.results);
     setTotalPages(response.data.total_pages);
+    setIsLoading(false); // Desactivar el estado de carga
   };
 
-  const handlePageChange = (direction: 'next' | 'prev') => {
-    setCurrentPage((prevPage) => {
-      const newPage = direction === 'next' ? prevPage + 1 : prevPage - 1;
-      if (newPage > 0 && newPage <= totalPages) {
-        fetchMovies(newPage, searchQuery); // Pasa el query actual
-        return newPage;
-      }
-      return prevPage;
-    });
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    fetchMovies(page, searchQuery); // Pasa el query actual
   };
 
   return (
@@ -107,6 +106,7 @@ const App: React.FC = () => {
                   currentPage={currentPage}
                   totalPages={totalPages}
                   onPageChange={handlePageChange}
+                  isLoading={isLoading} // Pasar el estado de carga
                 />
               } 
             />

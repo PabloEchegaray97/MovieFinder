@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Skeleton } from '@mui/material';
 import Movie from './Movie';
+import MovieModal from './MovieModal';
 import { useTheme } from '@mui/material/styles';
 
-interface MovieItem {
+
+export interface MovieItem {
     poster_path: string | null;
     title: string;
     overview: string;
     id: number;
+    release_date: string;
 }
 
 interface ActorDetailsData {
@@ -33,8 +36,17 @@ interface ActorDetailsData {
 const ActorDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [actorDetails, setActorDetails] = useState<ActorDetailsData | null>(null);
+    const [selectedMovie, setSelectedMovie] = useState<MovieItem | null>(null);
     const apiKey = import.meta.env.VITE_API_KEY;
-    const theme = useTheme(); // Usa el hook useTheme para obtener el tema actual
+    const theme = useTheme();
+
+    const handleMovieClick = (movie: MovieItem) => {
+        setSelectedMovie(movie);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedMovie(null);
+    };
 
     useEffect(() => {
         const fetchActorDetails = async () => {
@@ -43,7 +55,6 @@ const ActorDetails: React.FC = () => {
                     `https://api.themoviedb.org/3/person/${id}?api_key=${apiKey}&language=es&append_to_response=movie_credits,external_ids`
                 );
                 setActorDetails(response.data);
-                console.log(response.data);  // Muestra todos los datos en la consola
             } catch (error) {
                 console.error('Error al obtener los detalles del actor:', error);
             }
@@ -55,12 +66,21 @@ const ActorDetails: React.FC = () => {
     }, [id]);
 
     if (!actorDetails) {
-        return <Typography>Cargando...</Typography>;
+        return (
+            <Box sx={{ padding: 2 }}>
+                {/* Skeletons for loading state */}
+                <Skeleton variant="rectangular" width={'25vw'} height={'20rem'} sx={{ marginBottom: 2 }} />
+                <Skeleton variant="text" height={40} width="70%" />
+                <Skeleton variant="text" height={40} width="70%" />
+                <Skeleton variant="text" height={40} width="10%" />
+                <Skeleton variant="rectangular" height={'40rem'} width="100%" sx={{ marginBottom: 1 }} />
+            </Box>
+        );
     }
 
     return (
         <Box className="actor-details-container">
-            <Box className="actor-data mtop" display="flex">
+            <Box className="actor-data" display="flex">
                 <Box className="actor-details-text" flex={1} mr={2}>
                     {actorDetails.biography && (
                         <>
@@ -87,7 +107,7 @@ const ActorDetails: React.FC = () => {
                         <Typography><strong>Fecha de Nacimiento:</strong> {actorDetails.birthday}</Typography>
                         {actorDetails.deathday && <Typography><strong>Fecha de Fallecimiento:</strong> {actorDetails.deathday}</Typography>}
                         <Typography><strong>Lugar de Nacimiento:</strong> {actorDetails.place_of_birth}</Typography>
-                        
+
                         {actorDetails.facebook_id && (
                             <Typography>
                                 <strong>Facebook:</strong>
@@ -114,14 +134,21 @@ const ActorDetails: React.FC = () => {
             </Typography>
             <Box className="movie-list">
                 {actorDetails.movie_credits.cast.map((movie) => (
-                    <Link key={movie.id} to={`/movie/${movie.id}`}>
+                    <div key={movie.id} onClick={() => handleMovieClick(movie)}>
                         <Movie
                             posterPath={movie.poster_path}
                             title={movie.title}
                         />
-                    </Link>
+                    </div>
                 ))}
             </Box>
+
+            <MovieModal
+                open={!!selectedMovie}
+                handleClose={handleCloseModal}
+                movie={selectedMovie}
+                actorBirthday={actorDetails.birthday}
+            />
         </Box>
     );
 };

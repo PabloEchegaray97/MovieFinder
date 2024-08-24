@@ -10,3 +10,4 @@ export interface MovieItem {
     overview: string;
     id: number;
 }
+

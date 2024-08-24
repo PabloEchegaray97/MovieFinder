@@ -16,7 +16,7 @@ const Movie: React.FC<MovieProps> = ({ posterPath, title }) => {
                 height="100%"
                 image={posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : '/images/not-available-es.png'}
                 alt={posterPath ? `Poster de ${title}` : 'Imagen no disponible'}
-                sx={{ objectFit: 'cover', width: '16rem' }}
+                sx={{ objectFit: 'cover', width:'16rem' }}
             />
             <Typography
                 sx={{
@@ -26,11 +26,11 @@ const Movie: React.FC<MovieProps> = ({ posterPath, title }) => {
                     right: 0,
                     backgroundColor: 'rgba(0, 0, 0, 0.7)',
                     color: 'white',
-                    padding: '8px',
+                    padding: '.5rem',
                     textAlign: 'center',
-                    fontSize: '.8rem'
+                    fontSize: '.8rem',
+                    marginBottom:'.5rem'
                 }}
-                gutterBottom
             >
                 {title}
             </Typography>
