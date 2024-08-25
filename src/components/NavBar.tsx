@@ -17,6 +17,7 @@ import MovieFilterIcon from '@mui/icons-material/MovieFilter';
 import { Button, InputLabel, TextField, IconButton, Collapse } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { useTheme } from '@mui/material/styles';
 
 interface NavBarProps {
     darkMode: boolean;
@@ -26,6 +27,7 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight, onSearch }) => {
+    const theme = useTheme();
     const navbarRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
     const [searchType, setSearchType] = useState<string>('movie');
@@ -75,10 +77,25 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
                 <Box className="nav-buttons">
                     <Box display="flex" alignItems="center" className="darkmode-switch">
                         <Switch
+                            className='switch'
                             checked={darkMode}
                             onChange={() => setDarkMode(!darkMode)}
                             icon={<Brightness7Icon sx={{ color: darkMode ? 'white' : 'black' }} />}
                             checkedIcon={<Brightness4Icon sx={{ color: darkMode ? 'white' : 'black' }} />}
+                            sx={{
+                                '& .MuiSwitch-switchBase': {
+                                    color: darkMode ? 'white' : 'black', // Color del ícono cuando no está marcado
+                                    '&.Mui-checked': {
+                                        color: 'white', // Color del ícono cuando está marcado
+                                    },
+                                    '&.Mui-checked + .MuiSwitch-track': {
+                                        backgroundColor: 'white', // Color de fondo de la pista cuando está marcado
+                                    },
+                                },
+                                '& .MuiSwitch-track': {
+                                    backgroundColor:'black'  // Color de fondo de la pista cuando no está marcado
+                                },
+                            }}
                         />
                     </Box>
                     <IconButton onClick={handleToggleExpand} sx={{ color: darkMode ? 'white' : 'black' }}>
@@ -118,9 +135,15 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
                     />
                     <Button
                         variant="contained"
-                        color="primary"
                         onClick={handleSearch}
-                        sx={{ mt: 2 }}
+                        sx={{   
+                            mt: 2,
+                            bgcolor: theme.palette.text.primary,
+                            '&:hover': {
+                                bgcolor: theme.palette.text.secondary
+                            }
+                        }}
+
                         fullWidth
                     >
                         Buscar

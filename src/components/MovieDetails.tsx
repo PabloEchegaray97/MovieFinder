@@ -5,7 +5,7 @@ import MovieList from './MovieList';
 import SecondaryActorList from './SecondaryActorList';
 import { ToggleButton, ToggleButtonGroup, Box, Typography, Skeleton } from '@mui/material';
 import 'flag-icons/css/flag-icons.min.css';
-import { useTheme } from '@mui/material/styles'; // Importa el hook useTheme
+import { useTheme } from '@mui/material/styles';
 
 interface Genre {
     id: number;
@@ -57,17 +57,25 @@ interface RelatedMovie {
     release_date: string;
 }
 
+interface Video {
+    key: string;
+    name: string;
+    site: string;
+    type: string;
+}
+
 const MovieDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [movieDetails, setMovieDetails] = useState<MovieDetailsData | null>(null);
     const [actors, setActors] = useState<Actor[]>([]);
     const [relatedMovies, setRelatedMovies] = useState<RelatedMovie[]>([]);
+    const [video, setVideo] = useState<Video | null>(null);
     const [showContent, setShowContent] = useState<'suggestions' | 'details'>('suggestions');
     const language = 'es';
     const apiKey = import.meta.env.VITE_API_KEY;
     const apiUrl = import.meta.env.VITE_API_URL;
 
-    const theme = useTheme(); // Usa el hook useTheme para obtener el tema actual
+    const theme = useTheme();
 
     useEffect(() => {
         const fetchMovieDetails = async () => {
@@ -121,10 +129,26 @@ const MovieDetails: React.FC = () => {
             }
         };
 
+        const fetchMovieVideos = async () => {
+            try {
+                const response = await axios.get(
+                    `${apiUrl}/movie/${id}/videos?api_key=${apiKey}&language=${language}`
+                );
+                const videos = response.data.results;
+                const trailer = videos.find(
+                    (video: Video) => video.type === 'Trailer' && video.site === 'YouTube'
+                );
+                setVideo(trailer || null);
+            } catch (error) {
+                console.error('Error al obtener los videos de la película:', error);
+            }
+        };
+
         if (id) {
             fetchMovieDetails();
             fetchMovieCredits();
             fetchRelatedMovies();
+            fetchMovieVideos();
         }
     }, [id, apiKey, apiUrl]);
 
@@ -132,42 +156,35 @@ const MovieDetails: React.FC = () => {
         return (
             <Box sx={{ padding: 2 }}>
                 <Box display="flex" alignItems="center" mb={2}>
-
-                    {/* Skeleton del cuadro de texto a la derecha */}
-                    <Box flex={1} >
+                    <Box flex={1}>
                         <Box display="flex" justifyContent="center" mb={2}>
                             <Skeleton variant="text" height={40} width="50%" />
                         </Box>
                         <Skeleton variant="text" height={40} width="100%" />
                         <Skeleton variant="text" height={40} width="100%" />
                         <Skeleton variant="text" height={40} width="100%" />
-
                     </Box>
-                    {/* Skeleton de la imagen a la izquierda */}
                     <Box display="flex" alignItems="center" flexDirection="column">
                         <Skeleton variant="rectangular" width={'20vw'} height={'22rem'} sx={{ marginRight: 2, marginLeft: 2 }} />
                     </Box>
                 </Box>
-
-                <Box flex={1} >
+                <Box flex={1}>
                     <Box display="flex" justifyContent="center" mb={2}>
                         <Skeleton variant="text" height={40} width="50%" />
                     </Box>
                     <Skeleton variant="rectangular" height={'5rem'} width="100%" />
                     <Box display="flex" justifyContent="center" mb={2}>
-                        <Skeleton variant="text" height={40} width="50%" sx={{marginTop:'2rem'}} />
+                        <Skeleton variant="text" height={40} width="50%" sx={{ marginTop: '2rem' }} />
                     </Box>
                     <Box display="flex" justifyContent="center" gap="1rem">
-                    <Skeleton variant="rectangular" height={'5rem'} width="20%"/>
-                    <Skeleton variant="rectangular" height={'5rem'} width="20%"/>
-                    <Skeleton variant="rectangular" height={'5rem'} width="20%" />
-                    <Skeleton variant="rectangular" height={'5rem'} width="20%" />
+                        <Skeleton variant="rectangular" height={'5rem'} width="20%" />
+                        <Skeleton variant="rectangular" height={'5rem'} width="20%" />
+                        <Skeleton variant="rectangular" height={'5rem'} width="20%" />
+                        <Skeleton variant="rectangular" height={'5rem'} width="20%" />
                     </Box>
                 </Box>
-                {/* Skeleton para más texto debajo */}
-
             </Box>
-        )
+        );
     }
 
     const formattedRuntime = `${Math.floor(movieDetails.runtime / 60)} h ${movieDetails.runtime % 60} min`;
@@ -219,7 +236,20 @@ const MovieDetails: React.FC = () => {
                     </Typography>
                     <SecondaryActorList actors={actors} />
                 </div>
-
+                {video && (
+                    <Box className="video-iframe-container">
+                        <Typography variant="h6" sx={{ color: theme.palette.text.primary }} className='mbottom sec-font jcenter'>
+                            TRAILER
+                        </Typography>
+                        <iframe
+                            src={`https://www.youtube.com/embed/${video.key}`}
+                            title={video.name}
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            className='video-iframe'
+                        />
+                    </Box>
+                )}
                 <ToggleButtonGroup
                     value={showContent}
                     exclusive
@@ -234,74 +264,83 @@ const MovieDetails: React.FC = () => {
                     <ToggleButton
                         value="suggestions"
                         sx={{
-                            fontSize: '1rem', // Tamaño de la fuente
-                            borderBottom: showContent === 'suggestions' ? '0.2rem solid #000' : 'none', // Border bottom al estar seleccionado
-                            border: 'none', // Eliminar bordes
-                            outline: 'none', // Eliminar outline
-                            borderRadius: 0, // Sin bordes redondeados
-                            color: showContent === 'suggestions' ? 'text.primary' : 'text.secondary', // Color del texto
-                            backgroundColor: 'transparent', // Fondo transparente
-                            '&.Mui-selected': {
-                                borderBottom: `0.2rem solid ${theme.palette.text.primary}`, // Asegura el border bottom al estar seleccionado
-                            },
+                            fontSize: '1rem',
+                            borderBottom: showContent === 'suggestions' ? '0.2rem solid #000' : 'none',
+                            border: 'none',
+                            outline: 'none',
+                            textTransform: 'uppercase',
+                            color: showContent === 'suggestions' ? theme.palette.text.primary : theme.palette.text.secondary,
                         }}
                     >
-                        Sugerencias
+                        Recomendaciones
                     </ToggleButton>
                     <ToggleButton
                         value="details"
                         sx={{
-                            fontSize: '1rem', // Tamaño de la fuente
-                            borderBottom: showContent === 'details' ? '0.2rem solid #000' : 'none', // Border bottom al estar seleccionado
-                            border: 'none', // Eliminar bordes
-                            outline: 'none', // Eliminar outline
-                            borderRadius: 0, // Sin bordes redondeados
-                            color: showContent === 'details' ? 'text.primary' : 'text.secondary', // Color del texto
-                            backgroundColor: 'transparent', // Fondo transparente
-                            '&.Mui-selected': {
-                                borderBottom: `0.2rem solid ${theme.palette.text.primary}`, // Asegura el border bottom al estar seleccionado
-                            },
+                            fontSize: '1rem',
+                            borderBottom: showContent === 'details' ? '0.2rem solid #000' : 'none',
+                            border: 'none',
+                            outline: 'none',
+                            textTransform: 'uppercase',
+                            color: showContent === 'details' ? theme.palette.text.primary : theme.palette.text.secondary,
                         }}
                     >
-                        Detalles
+                        Detalles adicionales
                     </ToggleButton>
                 </ToggleButtonGroup>
 
+                {showContent === 'suggestions' ? (
+                    <MovieList movies={relatedMovies} />
+                ) : (
+                    <Box>
+                        <Typography variant="h6" sx={{ color: theme.palette.text.primary }} className='mtop'>
+                            Presupuesto:
+                            <Typography variant="body1" sx={{ color: theme.palette.text.primary }}>
+                                ${movieDetails.budget.toLocaleString()}
+                            </Typography>
+                        </Typography>
+                        <Typography variant="h6" sx={{ color: theme.palette.text.primary }} className='mtop'>
+                        Ingresos: 
+                        </Typography>
+                        <Typography variant="body1" sx={{ color: theme.palette.text.primary }}>
+                            ${movieDetails.revenue.toLocaleString()}
+
+                        </Typography>
+
+                        <Typography variant="h6" sx={{ color: theme.palette.text.primary }} className='mtop'>
+                            Lenguajes:
+                            <Typography variant="body1" sx={{ color: theme.palette.text.primary }}>
+                                {movieDetails.spoken_languages.map(lang => lang.name).join(', ')}
+                            </Typography>
+                        </Typography>
+                        <Typography variant="h6" sx={{ color: theme.palette.text.primary }} className='mtop'>
+                            Productores:
+                        </Typography>
+                        <ul>
+                            {movieDetails.production_companies.map(company => (
+                                <li key={company.id}>
+                                    <Typography variant="body1" sx={{ color: theme.palette.text.secondary }}>
+                                        {company.name} ({company.origin_country})
+                                    </Typography>
+                                </li>
+                            ))}
+                        </ul>
+                        <Typography variant="h6" sx={{ color: theme.palette.text.primary }} className='mtop'>
+                            Países de producción:
+                        </Typography>
+                        <ul>
+                            {movieDetails.production_countries.map(country => (
+                                <li key={country.iso_3166_1}>
+                                    <Typography variant="body1" sx={{ color: theme.palette.text.secondary }}>
+                                        {country.name}
+                                    </Typography>
+                                </li>
+                            ))}
+                        </ul>
+                    </Box>
+                )}
 
 
-
-
-                <Box mt={2}>
-                    {showContent === 'suggestions' && (
-                        <div>
-                            <MovieList movies={relatedMovies} />
-                        </div>
-                    )}
-
-                    {showContent === 'details' && (
-                        <div>
-                            <Typography variant="h6" sx={{ color: 'text.primary' }}>Detalles de la Película:</Typography>
-                            <Typography variant="body1" sx={{ color: 'text.primary' }}><strong>Título Original:</strong> {movieDetails.original_title}</Typography>
-                            <Typography variant="body1" sx={{ color: 'text.primary' }}><strong>Tagline:</strong> {movieDetails.tagline}</Typography>
-                            <Typography variant="body1" sx={{ color: 'text.primary' }}><strong>Fecha de Estreno:</strong> {formattedReleaseDate}</Typography>
-                            <Typography variant="body1" sx={{ color: 'text.primary' }}><strong>Duración:</strong> {formattedRuntime}</Typography>
-                            <Typography variant="body1" sx={{ color: 'text.primary' }}><strong>Productoras:</strong> {movieDetails.production_companies.map(pc => pc.name).join(', ')}</Typography>
-                            <Typography variant="body1" sx={{ color: 'text.primary' }}><strong>Promedio de Votos:</strong> {movieDetails.vote_average} ({movieDetails.vote_count} votos)</Typography>
-                            <Typography variant="body1" sx={{ color: 'text.primary' }}><strong>Presupuesto:</strong> ${movieDetails.budget.toLocaleString()}</Typography>
-                            <Typography variant="body1" sx={{ color: 'text.primary' }}><strong>Ingresos:</strong> ${movieDetails.revenue.toLocaleString()}</Typography>
-                            <Typography variant="body1" sx={{ color: 'text.primary' }}><strong>Idioma Original:</strong> {movieDetails.original_language.toUpperCase()}</Typography>
-                            <Typography variant="body1" sx={{ color: 'text.primary' }}><strong>Popularidad:</strong> {movieDetails.popularity}</Typography>
-                            <Typography variant="body1" sx={{ color: 'text.primary' }}><strong>Adulto:</strong> {movieDetails.adult ? 'Sí' : 'No'}</Typography>
-                            <Typography variant="body1" sx={{ color: 'text.primary' }}><strong>País de Producción:</strong> {
-                                movieDetails.production_countries.map(pc => (
-                                    <span key={pc.iso_3166_1} className={`fi fi-${pc.iso_3166_1.toLowerCase()}`} title={pc.name} style={{ marginRight: '10px' }}></span>
-                                ))
-                            }</Typography>
-                            <Typography variant="body1" sx={{ color: 'text.primary' }}><strong>Idiomas Hablados:</strong> {movieDetails.spoken_languages.map(sl => sl.name).join(', ')}</Typography>
-
-                        </div>
-                    )}
-                </Box>
             </div>
         </div>
     );

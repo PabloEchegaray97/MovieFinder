@@ -3,6 +3,7 @@ import MovieList from './MovieList';
 import ActorList from './ActorList';
 import { Box, Typography, Pagination, Skeleton } from '@mui/material';
 import { MovieItem, Actor } from '../types';
+import { useTheme } from '@mui/material/styles';
 
 interface HomeProps {
   searchResults: MovieItem[] | Actor[];
@@ -14,6 +15,8 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ searchResults, searchType, currentPage, totalPages, onPageChange, isLoading }) => {
+  const theme = useTheme();
+
   const [hasSearched, setHasSearched] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -47,7 +50,6 @@ const Home: React.FC<HomeProps> = ({ searchResults, searchType, currentPage, tot
             count={totalPages}
             page={currentPage}
             onChange={(_, page) => onPageChange(page)}
-            color="primary"
             siblingCount={1}
             boundaryCount={1}
             sx={{marginBottom:"1rem"}}
