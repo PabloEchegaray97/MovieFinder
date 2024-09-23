@@ -1,9 +1,5 @@
 import React from 'react';
-
-interface MainContainerProps {
-    navbarHeight: number;
-    children: React.ReactNode;
-}
+import { MainContainerProps } from '../types';
 
 const MainContainer: React.FC<MainContainerProps> = ({ navbarHeight, children }) => {
     return (

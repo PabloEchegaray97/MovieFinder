@@ -1,7 +1,8 @@
 import React from 'react';
-import { Modal, Typography, Button } from '@mui/material';
+import { Modal, Typography, Button, Box } from '@mui/material';
 import { MovieItem } from './ActorDetails';
 import dayjs from 'dayjs';
+import { useTheme } from '@mui/material/styles';
 
 interface MovieModalProps {
     open: boolean;
@@ -11,6 +12,8 @@ interface MovieModalProps {
 }
 
 const MovieModal: React.FC<MovieModalProps> = ({ open, handleClose, movie, actorBirthday }) => {
+    const theme = useTheme();
+
     if (!movie) return null;
 
     const calculateAgeAtRelease = (releaseDate: string) => {
@@ -29,8 +32,9 @@ const MovieModal: React.FC<MovieModalProps> = ({ open, handleClose, movie, actor
             aria-labelledby="movie-modal-title"
             aria-describedby="movie-modal-description"
             className='modal'
+            
         >
-            <div className="modal-content">
+            <Box className="modal-content" sx={{ backgroundColor: theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)'}}>
                 <img
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                     alt={movie.title}
@@ -54,7 +58,7 @@ const MovieModal: React.FC<MovieModalProps> = ({ open, handleClose, movie, actor
                 >
                     Ver Más
                 </Button>
-            </div>
+            </Box>
         </Modal>
     );
 };

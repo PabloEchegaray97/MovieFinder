@@ -1,47 +1,69 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import MovieList from './MovieList';
 import ActorList from './ActorList';
 import { Box, Typography, Pagination, Skeleton } from '@mui/material';
-import { MovieItem, Actor } from '../types';
+import { HomeProps, MovieItem, Actor } from '../types';
 import { useTheme } from '@mui/material/styles';
+import Banner from './Banner';
+import GenreSelector from './GenreSelector';
+import PersonGallerySelector from './PersonGallerySelector';
 
-interface HomeProps {
-  searchResults: MovieItem[] | Actor[];
-  searchType: string;
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void; // Cambiado para aceptar el número de página directamente
-  isLoading: boolean; // Nuevo prop para manejar el estado de carga
-}
-
-const Home: React.FC<HomeProps> = ({ searchResults, searchType, currentPage, totalPages, onPageChange, isLoading }) => {
+const Home: React.FC<HomeProps> = ({
+  searchResults,
+  searchType,
+  currentPage,
+  totalPages,
+  onPageChange,
+  isLoading,
+  
+}) => {
   const theme = useTheme();
+  const [hasSearched, setHasSearched] = useState<boolean>(false);
 
-  const [hasSearched, setHasSearched] = React.useState<boolean>(false);
-
-  React.useEffect(() => {
+  useEffect(() => {
     setHasSearched(searchResults.length > 0);
   }, [searchResults]);
 
   useEffect(() => {
-    // Scroll al principio de la página cuando cambie el número de página
     window.scrollTo(0, 0);
   }, [currentPage]);
 
   return (
     <section className='home'>
+      <div className='test'>
+      <Banner></Banner>
+
+      </div>
+      <Box className="d-center d-center-c m2 mtop2">
+        <Typography variant="h4" sx={{ color: theme.palette.text.primary }} className='sec-font jcenter mbottom'>
+          Descubre lo último en:
+        </Typography>
+        <GenreSelector></GenreSelector>
+      </Box>
+      <Box className="d-center d-center-c m2 mtop2 m1">
+        <Box className="w50">
+
+        <Typography variant="h4" sx={{ color: theme.palette.text.primary }} className='sec-font jcenter'>
+          Tus artistas favoritos
+        </Typography>
+        <Typography variant="body1" sx={{ color: theme.palette.text.primary }} className='sec-font jcenter mbottom'>
+          En un solo lugar
+        </Typography>
+        </Box>
+        <PersonGallerySelector></PersonGallerySelector>
+      </Box>
       <Box mb={2}>
         {isLoading ? (
           <div className='flex-center'>
             <Skeleton variant="rectangular" width="90%" height="30rem" />
           </div>
-        ) : searchType === 'movie' ? (
+        ) : searchType === 'movie' || searchType === 'genre' ? (
           <MovieList movies={searchResults as MovieItem[]} />
         ) : (
           <ActorList actors={searchResults as Actor[]} />
         )}
       </Box>
-      {searchType === 'movie' && hasSearched && (
+      {(searchType === 'movie' || searchType === 'genre') && hasSearched && (
         <Box display="flex" flexDirection="column" alignItems="center" mt={2}>
           <Typography variant="body1" mb={1} mt={2}>
             Página {currentPage} de {totalPages}
@@ -52,12 +74,13 @@ const Home: React.FC<HomeProps> = ({ searchResults, searchType, currentPage, tot
             onChange={(_, page) => onPageChange(page)}
             siblingCount={1}
             boundaryCount={1}
-            sx={{marginBottom:"1rem"}}
+            sx={{ marginBottom: "1rem" }}
           />
         </Box>
       )}
     </section>
   );
 };
+
 
 export default Home;

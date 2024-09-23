@@ -2,11 +2,8 @@ import React from 'react';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { MovieProps } from '../types';
 
-interface MovieProps {
-    posterPath: string | null;
-    title: string;
-}
 
 const Movie: React.FC<MovieProps> = ({ posterPath, title }) => {
     return (

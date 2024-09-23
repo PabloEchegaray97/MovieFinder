@@ -11,9 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Link } from 'react-router-dom';
-import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
 import MovieFilterOutlinedIcon from '@mui/icons-material/MovieFilterOutlined';
-import MovieFilterIcon from '@mui/icons-material/MovieFilter';
 import { Button, InputLabel, TextField, IconButton, Collapse } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
@@ -33,6 +31,29 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
     const [searchType, setSearchType] = useState<string>('movie');
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [expanded, setExpanded] = useState<boolean>(false);
+    const [genres, setGenres] = useState<{ id: number, name: string }[]>([]);
+    const [selectedGenre, setSelectedGenre] = useState<number | string>('');
+    const apiKey = import.meta.env.VITE_API_KEY;
+    const apiUrl = import.meta.env.VITE_API_URL;
+    useEffect(() => {
+        if (searchType === 'genre' && genres.length === 0) {
+            // Llamada a la API para obtener los géneros
+            const fetchGenres = async () => {
+                try {
+                    const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=es-ES`);
+                    const data = await response.json();
+                    setGenres(data.genres);
+                    console.log(data.genres);
+                    
+                } catch (error) {
+                    console.error('Error fetching genres:', error);
+                }
+            };
+    
+            fetchGenres();
+        }
+    }, [searchType, genres]);
+    
 
     useEffect(() => {
         if (navbarRef.current) {
@@ -45,10 +66,15 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
     };
 
     const handleSearch = () => {
-        onSearch(searchType, searchQuery);
+        if (searchType === 'genre') {
+            onSearch(searchType, selectedGenre.toString()); // Pasa el ID del género como query
+        } else {
+            onSearch(searchType, searchQuery);
+        }
         navigate('/');
         setExpanded(false);
     };
+    
 
     const handleToggleExpand = () => {
         setExpanded((prev) => !prev);
@@ -119,8 +145,28 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
                         >
                             <MenuItem value="movie">Película</MenuItem>
                             <MenuItem value="person">Persona</MenuItem>
+                            <MenuItem value="genre">Genero</MenuItem>
+
                         </Select>
                     </FormControl>
+                    {searchType === 'genre' ? (
+                        <FormControl variant="outlined" size="small" fullWidth sx={{ mt: 2 }}>
+                            <InputLabel id="genre-select-label">Seleccionar género</InputLabel>
+                            <Select
+                                labelId="genre-select-label"
+                                id="genre-select"
+                                value={selectedGenre}
+                                onChange={(e) => setSelectedGenre(Number(e.target.value))}
+                                label="Seleccionar género"
+                            >
+                                {genres.map((genre) => (
+                                    <MenuItem key={genre.id} value={genre.id}>
+                                        {genre.name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    ) : (
                     <TextField
                         id="filled-search"
                         label="Buscar"
@@ -132,7 +178,7 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
                         onChange={(e) => setSearchQuery(e.target.value)}
                         fullWidth
                         sx={{ mt: 2 }}
-                    />
+                    />)}
                     <Button
                         variant="contained"
                         onClick={handleSearch}

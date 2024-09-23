@@ -3,12 +3,7 @@ import { Link } from 'react-router-dom';
 import { Chip, Avatar, Box, IconButton, Collapse } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-
-interface Actor {
-    id: number;
-    name: string;
-    profile_path: string | null;
-}
+import {Actor} from '../types'
 
 interface SecondaryActorListProps {
     actors: Actor[];

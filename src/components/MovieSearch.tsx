@@ -6,14 +6,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-
-interface Movie {
-    id: number;
-    title: string;
-    poster_path: string | null;
-    overview: string;
-    release_date: string;
-}
+import { Movie } from '../types';
 
 enum SearchType {
     NAME = 'name',

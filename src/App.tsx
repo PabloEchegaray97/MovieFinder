@@ -8,6 +8,8 @@ import MovieDetails from './components/MovieDetails';
 import ActorDetails from './components/ActorDetails';
 import axios from 'axios';
 import { MovieItem, Actor } from './types';
+import Footer from './components/Footer';
+import ArrowUpward from '@mui/icons-material/ArrowUpward';
 
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
@@ -30,91 +32,148 @@ const App: React.FC = () => {
   const theme = createTheme({
     palette: {
       mode: darkMode ? 'dark' : 'light',
+      
     },
+    
   });
-
-  const handleSearch = async (type: string, query: string) => {
+  const goTop = () => {
+    window.scrollTo(0, 0);
+}
+  const handleSearch = async (type: string, query: string | number) => {
     setSearchType(type);
-    setSearchQuery(query); // Guardar el query de búsqueda
+    setSearchQuery(query.toString()); // Guardar el query de búsqueda
     setCurrentPage(1); // Reset page a 1 en nuevo search
     setIsLoading(true); // Activar el estado de carga
     const apiKey = import.meta.env.VITE_API_KEY;
     const apiUrl = import.meta.env.VITE_API_URL;
     let response;
-    if (type === 'movie') {
-      response = await axios.get(`${apiUrl}/search/movie`, {
-        params: {
-          api_key: apiKey,
-          query: query,
-          page: 1, // Initial page
-        },
-      });
+  
+    try {
+      if (type === 'movie') {
+        response = await axios.get(`${apiUrl}/search/movie`, {
+          params: {
+            api_key: apiKey,
+            query: query,
+            page: 1, // Initial page
+          },
+        });
+      } else if (type === 'genre') {
+        response = await axios.get(`${apiUrl}/discover/movie`, {
+          params: {
+            api_key: apiKey,
+            with_genres: query, // Utiliza el ID del género en lugar de un string
+            page: 1, // Initial page
+          },
+        });
+      } else {
+        response = await axios.get(`${apiUrl}/search/person`, {
+          params: {
+            api_key: apiKey,
+            query: query,
+          },
+        });
+      }
+  
+      // Lógica para manejar el límite de páginas
+      const maxPages = response.data.total_pages > 500 ? 500 : response.data.total_pages;
+      setTotalPages(maxPages);
+  
       setSearchResults(response.data.results);
-      setTotalPages(response.data.total_pages);
-    } else {
-      response = await axios.get(`${apiUrl}/search/person`, {
-        params: {
-          api_key: apiKey,
-          query: query,
-        },
-      });
-      setSearchResults(response.data.results);
-      setTotalPages(response.data.total_pages);
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    } finally {
+      setIsLoading(false); // Desactivar el estado de carga
     }
-    setIsLoading(false); // Desactivar el estado de carga
   };
-
+  
   const fetchMovies = async (page: number, query: string) => {
     setIsLoading(true); // Activar el estado de carga
     const apiKey = import.meta.env.VITE_API_KEY;
     const apiUrl = import.meta.env.VITE_API_URL;
-    const response = await axios.get(`${apiUrl}/search/movie`, {
-      params: {
-        api_key: apiKey,
-        query: query,
-        page: page,
-      },
-    });
-    setSearchResults(response.data.results);
-    setTotalPages(response.data.total_pages);
-    setIsLoading(false); // Desactivar el estado de carga
+    let response;
+  
+    try {
+      if (searchType === 'genre') {
+        // La búsqueda por género utiliza 'with_genres' con el ID del género
+        response = await axios.get(`${apiUrl}/discover/movie`, {
+          params: {
+            api_key: apiKey,
+            with_genres: query, // `query` es ser el ID del género (número)
+            page: page > 500 ? 500 : page, // la pagina no excede de 500
+          },
+        });
+      } else {
+        // La búsqueda por término utiliza 'query'
+        response = await axios.get(`${apiUrl}/search/movie`, {
+          params: {
+            api_key: apiKey,
+            query: query,
+            page: page > 500 ? 500 : page,
+          },
+        });
+      }
+  
+      const maxPages = response.data.total_pages > 500 ? 500 : response.data.total_pages;
+      setTotalPages(maxPages);
+  
+      setSearchResults(response.data.results);
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+    } finally {
+      setIsLoading(false); // Desactivar el estado de carga
+    }
   };
+  
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    fetchMovies(page, searchQuery); // Pasa el query actual
-  };
+
+
+
+const handlePageChange = async (page: number) => {
+  console.log('Page change triggered:', page);
+  setCurrentPage(page);
+  await fetchMovies(page, searchQuery); 
+  console.log('Movies fetched for page:', page);
+};
+
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <NavBar 
-          darkMode={darkMode} 
-          setDarkMode={setDarkMode} 
-          setNavbarHeight={setNavbarHeight} 
-          onSearch={handleSearch} 
+        <NavBar
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+          setNavbarHeight={setNavbarHeight}
+          onSearch={handleSearch}
         />
+
         <MainContainer navbarHeight={navbarHeight}>
           <Routes>
-            <Route 
-              path="/" 
+            <Route
+              path="/"
               element={
-                <Home 
-                  searchResults={searchResults} 
+                <Home
+                  searchResults={searchResults}
                   searchType={searchType}
                   currentPage={currentPage}
                   totalPages={totalPages}
                   onPageChange={handlePageChange}
                   isLoading={isLoading} // Pasar el estado de carga
                 />
-              } 
+              }
             />
             <Route path="/movie/:id" element={<MovieDetails />} />
             <Route path="/actor/:id" element={<ActorDetails />} />
           </Routes>
         </MainContainer>
+        <Footer
+                  darkMode={darkMode}
+        ></Footer>
+
       </Router>
+      <div className='go-top-arrow' onClick={goTop}>
+        <ArrowUpward sx={{ color: 'white', fontSize: 30 }} />
+      </div>              
     </ThemeProvider>
   );
 };

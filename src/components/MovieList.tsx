@@ -2,13 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Movie from './Movie';
 import { Box } from '@mui/material';
-
-interface MovieItem {
-  poster_path: string | null;
-  title: string;
-  overview: string;
-  id: number; 
-}
+import { MovieItem} from '../types';
 
 interface MovieListProps {
   movies: MovieItem[];
