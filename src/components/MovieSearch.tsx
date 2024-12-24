@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MovieList from './MovieList';
 import { FormControl, InputLabel, Select, MenuItem, TextField, Button, Box } from '@mui/material';
@@ -57,14 +57,29 @@ const MovieSearch: React.FC = () => {
     const handleNextPage = () => {
         if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
     };
 
     const handlePrevPage = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
     };
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [currentPage]);
 
     return (
         <div className="movie-search">

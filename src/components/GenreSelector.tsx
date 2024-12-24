@@ -3,12 +3,13 @@ import { Box, Typography, Skeleton } from '@mui/material';
 import axios from 'axios';
 import { useTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper as SwiperComponent, SwiperSlide, SwiperRef } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
 
 interface Genre {
   id: number;
@@ -27,8 +28,16 @@ const GenreSelector: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loadingGenres, setLoadingGenres] = useState<boolean>(true);
   const [loadingMovies, setLoadingMovies] = useState<boolean>(true);
+  const [imagesLoaded, setImagesLoaded] = useState<{ [key: number]: boolean }>({});
   const theme = useTheme();
-  const swiperRef = useRef<any>(null);
+  const swiperRef = useRef<SwiperRef>(null);
+
+  const handleImageLoad = (movieId: number) => {
+    setImagesLoaded(prev => ({
+      ...prev,
+      [movieId]: true
+    }));
+  };
 
   useEffect(() => {
     const fetchGenres = async () => {
@@ -84,15 +93,13 @@ const GenreSelector: React.FC = () => {
   }, [selectedGenre]);
 
   useEffect(() => {
-    if (swiperRef.current && selectedGenre !== null) {
-      const genreIndex = genres.findIndex(genre => genre.id === selectedGenre);
-      if (genreIndex !== -1) {
-        swiperRef.current.swiper.slideToLoop(genreIndex, 300, true);
-      }
+    const genreIndex = genres.findIndex(genre => genre.id === selectedGenre);
+    if (genreIndex !== -1 && swiperRef.current) {
+      swiperRef.current.swiper.slideToLoop(genreIndex, 300, true);
     }
   }, [selectedGenre, genres]);
 
-  const handleSlideChange = (swiper: any) => {
+  const handleSlideChange = (swiper: SwiperType) => {
     const activeSlide = swiper.slides[swiper.activeIndex];
     const genreId = genres.find(genre => genre.name === activeSlide.innerText)?.id;
     if (genreId) {
@@ -118,7 +125,7 @@ const GenreSelector: React.FC = () => {
         {loadingGenres ? (
           <Skeleton variant="rectangular" width="100%" height={40} />
         ) : (
-          <Swiper
+          <SwiperComponent
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={10}
             slidesPerView={1}
@@ -134,7 +141,7 @@ const GenreSelector: React.FC = () => {
                 </Typography>
               </SwiperSlide>
             ))}
-          </Swiper>
+          </SwiperComponent>
         )}
       </Box>
 
@@ -152,10 +159,24 @@ const GenreSelector: React.FC = () => {
             {movies.map((movie) => (
               <Box key={movie.id} className="movie-grid-container" sx={{ position: 'relative', width: '100%' }}>
                 <Link to={`/movie/${movie.id}`}>
+                  {!imagesLoaded[movie.id] && (
+                    <Skeleton 
+                      variant="rectangular" 
+                      className='genre-img-grid'
+                      animation="wave"
+                      sx={{
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                        height: '10rem',
+                        transform: 'none'
+                      }}
+                    />
+                  )}
                   <img
                     src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                     alt={movie.title}
                     className='genre-img-grid'
+                    style={{ display: imagesLoaded[movie.id] ? 'block' : 'none' }}
+                    onLoad={() => handleImageLoad(movie.id)}
                   />
                   <Typography
                     variant="body2"
@@ -167,13 +188,19 @@ const GenreSelector: React.FC = () => {
                       width: '100%',
                       height: '100%',
                       color: 'white',
-                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                      backgroundColor: 'rgba(0, 0, 0, 0)',
                       padding: '10px 0',
                       zIndex: 1,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       textAlign: 'center',
+                      opacity: 0,
+                      transition: 'all 0.3s ease-in-out',
+                      '.movie-grid-container:hover &': {
+                        opacity: 1,
+                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                      }
                     }}
                   >
                     {movie.title}
