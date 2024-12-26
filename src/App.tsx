@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import NavBar from './components/NavBar';
 import MainContainer from './components/MainContainer';
 import Home from './components/Home';
@@ -10,6 +11,34 @@ import axios from 'axios';
 import { MovieItem, Actor } from './types';
 import Footer from './components/Footer';
 import ArrowUpward from '@mui/icons-material/ArrowUpward';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    background: {
+      default: '#242424',
+      paper: '#242424',
+    },
+    text: {
+      primary: '#ffffff',
+      secondary: 'rgba(255, 255, 255, 0.7)',
+    },
+  },
+});
+
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+    background: {
+      default: '#f5f5f5',
+      paper: '#ffffff',
+    },
+    text: {
+      primary: '#000000',
+      secondary: 'rgba(0, 0, 0, 0.7)',
+    },
+  },
+});
 
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
@@ -29,16 +58,6 @@ const App: React.FC = () => {
     localStorage.setItem('darkMode', darkMode.toString());
   }, [darkMode]);
 
-  const theme = createTheme({
-    palette: {
-      mode: darkMode ? 'dark' : 'light',
-      
-    },
-    
-  });
-  const goTop = () => {
-    window.scrollTo(0, 0);
-}
   const handleSearch = async (type: string, query: string | number) => {
     setSearchType(type);
     setSearchQuery(query.toString()); // Guardar el query de búsqueda
@@ -135,9 +154,12 @@ const handlePageChange = async (page: number) => {
   console.log('Movies fetched for page:', page);
 };
 
+  const goTop = () => {
+    window.scrollTo(0, 0);
+  };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
       <Router>
         <NavBar
@@ -172,7 +194,7 @@ const handlePageChange = async (page: number) => {
 
       </Router>
       <div className='go-top-arrow' onClick={goTop}>
-        <ArrowUpward sx={{ color: 'white', fontSize: 30 }} />
+        <ArrowUpward sx={{ color: darkMode ? 'white' : 'black', fontSize: 30 }} />
       </div>              
     </ThemeProvider>
   );

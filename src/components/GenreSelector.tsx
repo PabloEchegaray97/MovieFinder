@@ -136,7 +136,7 @@ const GenreSelector: React.FC = () => {
           >
             {genres.map((genre) => (
               <SwiperSlide key={genre.id} style={{ display: 'flex', justifyContent: 'center' }}>
-                <Typography variant='h4' sx={{ color: theme.palette.text.primary }} className='mbottom jcenter title'>
+                <Typography variant='h4' sx={{ color: theme.palette.text.primary }} className='mbottom-3 jcenter title'>
                   {genre.name}
                 </Typography>
               </SwiperSlide>

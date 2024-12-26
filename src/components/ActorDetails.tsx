@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Box, Typography, Skeleton } from '@mui/material';
+import { Box, Typography, CircularProgress } from '@mui/material';
 import Movie from './Movie';
 import MovieModal from './MovieModal';
 import { useTheme } from '@mui/material/styles';
@@ -67,13 +67,15 @@ const ActorDetails: React.FC = () => {
 
     if (!actorDetails) {
         return (
-            <Box sx={{ padding: 2 }}>
-                {/* Skeletons for loading state */}
-                <Skeleton variant="rectangular" width={'25vw'} height={'20rem'} sx={{ marginBottom: 2 }} />
-                <Skeleton variant="text" height={40} width="70%" />
-                <Skeleton variant="text" height={40} width="70%" />
-                <Skeleton variant="text" height={40} width="10%" />
-                <Skeleton variant="rectangular" height={'40rem'} width="100%" sx={{ marginBottom: 1 }} />
+            <Box 
+                sx={{ 
+                    display: 'flex', 
+                    justifyContent: 'center', 
+                    alignItems: 'center', 
+                }}
+                className='loader-container'
+            >
+                <CircularProgress size={50} sx={{ color: 'white' }} />
             </Box>
         );
     }

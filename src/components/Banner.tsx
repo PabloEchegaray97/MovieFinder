@@ -162,7 +162,6 @@ const Banner: React.FC = () => {
                     variant="rectangular"
                     width="100%"
                     height="100%"
-                    animation="wave"
                     sx={{
                       backgroundColor: 'rgba(255, 255, 255, 0.1)',
                       position: 'absolute',

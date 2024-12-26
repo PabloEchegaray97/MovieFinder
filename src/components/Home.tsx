@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import MovieList from './MovieList';
 import ActorList from './ActorList';
-import { Box, Typography, Pagination, Skeleton, Card } from '@mui/material';
+import { Box, Typography, Pagination, CircularProgress } from '@mui/material';
 import { HomeProps, MovieItem, Actor } from '../types';
 import { useTheme } from '@mui/material/styles';
 import Banner from './Banner';
@@ -19,7 +19,16 @@ const Home: React.FC<HomeProps> = ({
 }) => {
   const theme = useTheme();
   const [hasSearched, setHasSearched] = useState<boolean>(false);
+  const [initialLoading, setInitialLoading] = useState<boolean>(true);
   const location = useLocation();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setInitialLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     setHasSearched(searchResults.length > 0);
@@ -34,6 +43,21 @@ const Home: React.FC<HomeProps> = ({
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [currentPage]);
+
+  if (initialLoading) {
+    return (
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+        }}
+        className='loader-container'
+      >
+        <CircularProgress size={50} sx={{ color: 'white' }} />
+      </Box>
+    );
+  }
 
   return (
     <section className='home'>
@@ -64,38 +88,16 @@ const Home: React.FC<HomeProps> = ({
         <>
           <Box mb={2}>
             {isLoading ? (
-              <div className='flex-center'>
-                <Box sx={{ width: '100%' }}>
-                  <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(16rem, 1fr))', gap: '1rem' }}>
-                    {Array.from({ length: searchResults.length || 20 }).map((_, index) => (
-                      <Card key={index} sx={{ height: '21rem', position: 'relative' }}>
-                        <Skeleton 
-                          variant="rectangular" 
-                          width="100%"
-                          height="100%"
-                          animation="wave"
-                          sx={{
-                            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                            transform: 'none'
-                          }}
-                        />
-                        <Skeleton 
-                          variant="text" 
-                          width="100%"
-                          height={30}
-                          animation="wave"
-                          sx={{
-                            position: 'absolute',
-                            bottom: 8,
-                            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                            transform: 'none'
-                          }}
-                        />
-                      </Card>
-                    ))}
-                  </Box>
-                </Box>
-              </div>
+              <Box 
+                sx={{ 
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  alignItems: 'center', 
+                  minHeight: '50vh'
+                }}
+              >
+                <CircularProgress size={20} sx={{ color: 'white' }} />
+              </Box>
             ) : searchType === 'movie' || searchType === 'genre' ? (
               <MovieList movies={searchResults as MovieItem[]} />
             ) : (

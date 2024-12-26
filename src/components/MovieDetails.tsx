@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import MovieList from './MovieList';
 import SecondaryActorList from './SecondaryActorList';
-import { ToggleButton, ToggleButtonGroup, Box, Typography, Skeleton, Tooltip } from '@mui/material';
+import { ToggleButton, ToggleButtonGroup, Box, Typography, Tooltip, CircularProgress } from '@mui/material';
 import 'flag-icons/css/flag-icons.min.css';
 import { useTheme } from '@mui/material/styles';
 import {  Actor, MovieDetailsData, RelatedMovie, Video, ProvidersData} from '../types';
@@ -11,53 +11,6 @@ import {  Actor, MovieDetailsData, RelatedMovie, Video, ProvidersData} from '../
 
 
 const MovieDetails: React.FC = () => {
-    const LoadingSkeleton = () => {
-        return (
-          <Box sx={{ padding: 2 }}>
-            <Box display="flex" alignItems="center" mb={2}>
-              <Box flex={1}>
-                {/* Título */}
-                <Box display="flex" justifyContent="center" mb={2}>
-                  <Skeleton variant="text" width={movieDetails?.title?.length ? `${movieDetails.title.length * 15}px` : '50%'} height={40} />
-                </Box>
-                {/* Info de la película */}
-                <Skeleton variant="text" width="100%" height={24} />
-                {/* Overview */}
-                {[...Array(3)].map((_, index) => (
-                  <Skeleton key={index} variant="text" width="100%" height={20} sx={{ mt: 1 }} />
-                ))}
-              </Box>
-              {/* Poster */}
-              <Box display="flex" alignItems="center" flexDirection="column">
-                <Skeleton 
-                  variant="rectangular" 
-                  width={'15rem'} 
-                  height={'22rem'} 
-                  sx={{ marginRight: 2, marginLeft: 2, borderRadius: 2 }} 
-                />
-              </Box>
-            </Box>
-      
-            {/* Elenco */}
-            <Box flex={1}>
-              <Box display="flex" justifyContent="center" mb={2}>
-                <Skeleton variant="text" width="200px" height={40} />
-              </Box>
-              <Box display="flex" justifyContent="center" gap={2} flexWrap="wrap">
-                {[...Array(6)].map((_, index) => (
-                  <Skeleton 
-                    key={index}
-                    variant="rectangular" 
-                    width="150px" 
-                    height="200px"
-                    sx={{ borderRadius: 2 }}
-                  />
-                ))}
-              </Box>
-            </Box>
-          </Box>
-        );
-      };
     const { id } = useParams<{ id: string }>();
     const [movieDetails, setMovieDetails] = useState<MovieDetailsData | null>(null);
     const [actors, setActors] = useState<Actor[]>([]);
@@ -118,7 +71,18 @@ const MovieDetails: React.FC = () => {
     }, [id, apiKey, apiUrl, language]);
 
     if (loading || !movieDetails) {
-        return <LoadingSkeleton />;
+        return (
+            <Box 
+                sx={{ 
+                    display: 'flex', 
+                    justifyContent: 'center', 
+                    alignItems: 'center', 
+                }}
+                className='loader-container'
+            >
+                <CircularProgress size={50} sx={{ color: 'white' }} />
+            </Box>
+        );
     }
 
     const formattedRuntime = `${Math.floor(movieDetails.runtime / 60)} h ${movieDetails.runtime % 60} min`;
