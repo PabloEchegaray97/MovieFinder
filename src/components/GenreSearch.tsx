@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, Typography, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import PersonIcon from '@mui/icons-material/Person';
+import CategoryIcon from '@mui/icons-material/Category';
 
-const ActorSearch: React.FC = () => {
+const GenreSearch: React.FC = () => {
     return (
         <Box sx={{ 
             minHeight: 'calc(100vh - 64px)',
@@ -15,7 +15,7 @@ const ActorSearch: React.FC = () => {
                 margin: '0 auto',
                 textAlign: 'center'
             }}>
-                <PersonIcon sx={{ fontSize: 60, color: 'secondary.main', mb: 2 }} />
+                <CategoryIcon sx={{ fontSize: 60, color: 'success.main', mb: 2 }} />
                 <Typography 
                     variant="h3" 
                     sx={{ 
@@ -24,7 +24,7 @@ const ActorSearch: React.FC = () => {
                         mb: 2
                     }}
                 >
-                    Buscar personas
+                    Explorar por Género
                 </Typography>
                 <Typography 
                     variant="h6" 
@@ -33,12 +33,12 @@ const ActorSearch: React.FC = () => {
                         mb: 4
                     }}
                 >
-                    Encuentra tus artistas favoritas, descubre sus películas y explora sus carreras
+                    Descubre películas por género, desde acción hasta drama
                 </Typography>
                 
                 <TextField
                     fullWidth
-                    placeholder="Buscar personas..."
+                    placeholder="Buscar géneros..."
                     variant="outlined"
                     sx={{
                         mb: 4,
@@ -61,11 +61,11 @@ const ActorSearch: React.FC = () => {
                     gap: '2rem',
                     mt: 4
                 }}>
-                    {/* Aquí puedes agregar actores populares o sugerencias */}
+                    {/* Aquí puedes agregar una lista de géneros disponibles */}
                 </Box>
             </Box>
         </Box>
     );
 };
 
-export default ActorSearch; 
+export default GenreSearch; 

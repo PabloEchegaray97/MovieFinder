@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import MovieList from './MovieList';
 import SecondaryActorList from './SecondaryActorList';
-import { ToggleButton, ToggleButtonGroup, Box, Typography, Tooltip, CircularProgress } from '@mui/material';
+import { ToggleButton, ToggleButtonGroup, Box, Typography, Tooltip, CircularProgress, Grid, Chip, Stack } from '@mui/material';
 import 'flag-icons/css/flag-icons.min.css';
 import { useTheme } from '@mui/material/styles';
 import {  Actor, MovieDetailsData, RelatedMovie, Video, ProvidersData} from '../types';
@@ -99,33 +99,41 @@ const MovieDetails: React.FC = () => {
             )}
 
             <div className="movie-details">
-                <Box className="movie-data">
-                    <Box className="movie-details-text">
-                        <Typography variant="h4" sx={{ color: theme.palette.text.primary }} className='movie-title'>
-                            {movieDetails.title}
-                        </Typography>
-                        <div className='movie-info mbottom mtop-m'>
-                            <Typography variant="body1" sx={{ color: theme.palette.text.secondary }}>
-                                {`${new Date(movieDetails.release_date).getFullYear()} • ${formattedRuntime} • ${movieDetails.genres.map(genre => genre.name).join(', ')} • Clasificación: ${movieDetails.certification}`}
-                            </Typography>
-                        </div>
-                        <Typography variant="body1" sx={{ color: theme.palette.text.primary }} className='movie-overview'>
-                            {movieDetails.overview}
-                        </Typography>
-                    </Box>
-                    <Box className="movie-poster-container">
-                        {movieDetails.poster_path && (
-                            <img
-                                src={`https://image.tmdb.org/t/p/original${movieDetails.poster_path}`}
-                                alt={`Póster de ${movieDetails.title}`}
-                                className="movie-poster"
+                <div className='movie-details-container'>
+
+                <Box className="movie-details-text">
+                    <Typography variant="h2" className='movie-title'>
+                        {movieDetails.title}
+                    </Typography>
+
+                    <Typography 
+                        variant="body1" 
+                        sx={{ color: theme.palette.text.secondary }}
+                        className='mtop-m'
+                    >
+                        {`${new Date(movieDetails.release_date).getFullYear()} • ${formattedRuntime} • ${movieDetails.genres.map(genre => genre.name).join(', ')} • Clasificación: ${movieDetails.certification}`}
+                    </Typography>
+
+                    <Typography 
+                        variant="body1" 
+                        sx={{ color: theme.palette.text.primary }} 
+                        className='movie-overview mtop'
+                    >
+                        {movieDetails.overview}
+                    </Typography>
+                </Box>
+
+                <Box className="movie-poster-container">
+                    {movieDetails.poster_path && (
+                        <img
+                            src={`https://image.tmdb.org/t/p/original${movieDetails.poster_path}`}
+                            alt={`Póster de ${movieDetails.title}`}
+                            className="movie-poster"
                             />
                         )}
-                    </Box>
                 </Box>
-                <div>
-
                 </div>
+
                 <div>
                     <Typography variant="h6" sx={{ color: theme.palette.text.primary, borderBottom: '2px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '1.5rem', textAlign: 'center' }} className='mbottom sec-font jcenter'>
                         ELENCO
@@ -244,51 +252,108 @@ const MovieDetails: React.FC = () => {
                 {showContent === 'suggestions' ? (
                     <MovieList movies={relatedMovies} />
                 ) : (
-                    <Box>
-                        <Typography variant="h6" sx={{ color: theme.palette.text.primary }} className='mtop'>
-                            Presupuesto:
-                            <Typography variant="body1" sx={{ color: theme.palette.text.primary }}>
-                                ${movieDetails.budget.toLocaleString()}
-                            </Typography>
-                        </Typography>
-                        <Typography variant="h6" sx={{ color: theme.palette.text.primary }} className='mtop'>
-                            Ingresos:
-                        </Typography>
-                        <Typography variant="body1" sx={{ color: theme.palette.text.primary }}>
-                            ${movieDetails.revenue.toLocaleString()}
-
-                        </Typography>
-
-                        <Typography variant="h6" sx={{ color: theme.palette.text.primary }} className='mtop'>
-                            Lenguajes:
-                            <Typography variant="body1" sx={{ color: theme.palette.text.primary }}>
-                                {movieDetails.spoken_languages.map(lang => lang.name).join(', ')}
-                            </Typography>
-                        </Typography>
-                        <Typography variant="h6" sx={{ color: theme.palette.text.primary }} className='mtop'>
-                            Productores:
-                        </Typography>
-                        <ul>
-                            {movieDetails.production_companies.map(company => (
-                                <li key={company.id}>
-                                    <Typography variant="body1" sx={{ color: theme.palette.text.secondary }}>
-                                        {company.name} ({company.origin_country})
+                    <Box sx={{ 
+                        backgroundColor: 'background.paper',
+                        padding: '2rem',
+                        borderRadius: '.3rem',
+                        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                        marginTop: '2rem'
+                    }}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} md={6}>
+                                <Typography variant="h6" sx={{ 
+                                    color: 'text.primary',
+                                    borderBottom: '2px solid rgba(255,255,255,0.1)',
+                                    paddingBottom: '0.5rem',
+                                    marginBottom: '1rem'
+                                }}>
+                                    Detalles de Producción
+                                </Typography>
+                                <Box sx={{ mb: 3 }}>
+                                    <Typography variant="subtitle1" sx={{ color: 'text.secondary', mb: 1 }}>
+                                        Lenguaje original
                                     </Typography>
-                                </li>
-                            ))}
-                        </ul>
-                        <Typography variant="h6" sx={{ color: theme.palette.text.primary }} className='mtop'>
-                            Países de producción:
-                        </Typography>
-                        <ul>
-                            {movieDetails.production_countries.map(country => (
-                                <li key={country.iso_3166_1}>
-                                    <Typography variant="body1" sx={{ color: theme.palette.text.secondary }}>
-                                        {country.name}
+                                    <Typography variant="body1" sx={{ color: 'text.primary' }}>
+                                        {movieDetails.spoken_languages.map(lang => lang.name).join(', ')}
                                     </Typography>
-                                </li>
-                            ))}
-                        </ul>
+                                </Box>
+
+                                <Box sx={{ mb: 3 }}>
+                                    <Typography variant="subtitle1" sx={{ color: 'text.secondary', mb: 1 }}>
+                                        Compañías Productoras
+                                    </Typography>
+                                    {movieDetails.production_companies.map(company => (
+                                        <Typography 
+                                            key={company.id} 
+                                            variant="body1" 
+                                            sx={{ 
+                                                color: 'text.primary',
+                                                mb: 0.5,
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: 1
+                                            }}
+                                        >
+                                            {company.name} 
+                                            <Chip 
+                                                label={company.origin_country} 
+                                                size="small"
+                                                sx={{ 
+                                                    backgroundColor: 'rgba(255,255,255,0.1)',
+                                                    color: 'text.secondary'
+                                                }}
+                                            />
+                                        </Typography>
+                                    ))}
+                                </Box>
+
+                                <Box>
+                                    <Typography variant="subtitle1" sx={{ color: 'text.secondary', mb: 1 }}>
+                                        Países de Producción
+                                    </Typography>
+                                    <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
+                                        {movieDetails.production_countries.map(country => (
+                                            <Chip 
+                                                key={country.iso_3166_1}
+                                                label={country.name}
+                                                size="small"
+                                                sx={{ 
+                                                    backgroundColor: 'rgba(255,255,255,0.1)',
+                                                    color: 'text.primary'
+                                                }}
+                                            />
+                                        ))}
+                                    </Stack>
+                                </Box>
+                            </Grid>
+
+                            <Grid item xs={12} md={6}>
+                                <Typography variant="h6" sx={{ 
+                                    color: 'text.primary',
+                                    borderBottom: '2px solid rgba(255,255,255,0.1)',
+                                    paddingBottom: '0.5rem',
+                                    marginBottom: '1rem'
+                                }}>
+                                    Información Financiera
+                                </Typography>
+                                <Box sx={{ mb: 3 }}>
+                                    <Typography variant="subtitle1" sx={{ color: 'text.secondary', mb: 1 }}>
+                                        Presupuesto
+                                    </Typography>
+                                    <Typography variant="h6" sx={{ color: 'text.primary' }}>
+                                        ${movieDetails.budget.toLocaleString()}
+                                    </Typography>
+                                </Box>
+                                <Box sx={{ mb: 3 }}>
+                                    <Typography variant="subtitle1" sx={{ color: 'text.secondary', mb: 1 }}>
+                                        Ingresos
+                                    </Typography>
+                                    <Typography variant="h6" sx={{ color: 'text.primary' }}>
+                                        ${movieDetails.revenue.toLocaleString()}
+                                    </Typography>
+                                </Box>
+                            </Grid>
+                        </Grid>
                     </Box>
                 )}
 

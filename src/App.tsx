@@ -11,6 +11,9 @@ import axios from 'axios';
 import { MovieItem, Actor } from './types';
 import Footer from './components/Footer';
 import ArrowUpward from '@mui/icons-material/ArrowUpward';
+import MovieSearch from './components/MovieSearch';
+import ActorSearch from './components/ActorSearch';
+import GenreSearch from './components/GenreSearch';
 
 const darkTheme = createTheme({
   palette: {
@@ -183,24 +186,25 @@ const handlePageChange = async (page: number) => {
                   currentPage={currentPage}
                   totalPages={totalPages}
                   onPageChange={handlePageChange}
-                  isLoading={isLoading} // Pasar el estado de carga
+                  isLoading={isLoading}
                 />
               }
             />
             <Route path="/movie/:id" element={<MovieDetails />} />
             <Route path="/actor/:id" element={<ActorDetails />} />
+            
+            <Route path="/movies" element={<MovieSearch />} />
+            <Route path="/artists" element={<ActorSearch />} />
+            <Route path="/genres" element={<GenreSearch />} />
           </Routes>
         </MainContainer>
-        <Footer
-                  darkMode={darkMode}
-        ></Footer>
-
+        <Footer darkMode={darkMode} />
       </Router>
       <div className='go-top-arrow' onClick={goTop}>
         <ArrowUpward sx={{ 
-            color: darkMode ? 'white' : 'black', 
-            fontSize: 30,
-            boxShadow: 'none'
+          color: darkMode ? 'white' : 'black', 
+          fontSize: 30,
+          boxShadow: 'none'
         }} />
       </div>              
     </ThemeProvider>

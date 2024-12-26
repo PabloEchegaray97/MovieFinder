@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Box, Skeleton, Typography } from '@mui/material';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -21,6 +21,7 @@ const Banner: React.FC = () => {
   const [recentMovies, setRecentMovies] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<Genre[]>([]);
   const [imageLoading, setImageLoading] = useState<{ [key: number]: boolean }>({}); // Mover arriba
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const fetchRecentMovies = async () => {
@@ -84,11 +85,28 @@ const Banner: React.FC = () => {
     }
   }, [recentMovies]);
 
+  const updateBackground = useCallback((index: number) => {
+    if (recentMovies[index]?.backdrop_path) {
+      const imageUrl = `https://image.tmdb.org/t/p/original${recentMovies[index].backdrop_path}`;
+      document.documentElement.style.setProperty('--banner-image', `url(${imageUrl})`);
+    }
+  }, [recentMovies]);
+
+  useEffect(() => {
+    if (recentMovies.length > 0) {
+      updateBackground(currentIndex);
+    }
+  }, [recentMovies, currentIndex, updateBackground]);
+
   const getGenreNames = (genreIds: number[]) => {
     return genreIds.map((id) => {
       const genre = genres.find((g) => g.id === id);
       return genre ? genre.name : 'Desconocido';
     }).join(', ');
+  };
+
+  const handleSlideChange = (index: number) => {
+    setCurrentIndex(index);
   };
 
   return (
@@ -143,6 +161,7 @@ const Banner: React.FC = () => {
               <span className="carousel-arrow-next">❯</span>
             </div>
           )}
+          onChange={handleSlideChange}
         >
           {recentMovies.map((movie) => (
             <Link to={`/movie/${movie.id}`} className='link-img' key={movie.id}>

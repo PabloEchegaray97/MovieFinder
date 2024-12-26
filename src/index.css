@@ -8,6 +8,8 @@
 }
 :root {
   --navbar-height: 64px;  /* Definir la variable globalmente */
+  --dominant-color: rgb(36, 36, 36);
+  --banner-image: none;
 }
 
 .navbar {
@@ -90,7 +92,7 @@
 }
 
 .movie-title {
-  font-size: 3.5rem !important;
+  font-size: 4.5rem !important;
 }
 .movie-info {
   padding-top: .3rem;
@@ -468,21 +470,58 @@
 .banner-img-container {
   position: relative;
   width: 100%;
-  height: 70vh;
+  height: 80vh;
+}
+
+.movie-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    transparent 100%
+  );
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.banner-title {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  z-index: 3;
+  position: relative;
+}
+
+.movie-info p {
+  color: white;
+  z-index: 3;
+  position: relative;
+}
+
+.banner-img-container:hover .movie-info {
+  opacity: 1;
 }
 
 .banner-img {
   width: 100%;
-  height: 70vh;
+  height: 80vh;
   object-fit: cover;
   object-position: top;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 }
 
 .carousel {
   width: 60vw;
-  height: 70vh;
-  border-radius: 1rem;
+  height: 80vh;
+  border-radius: 0.5rem;
   padding: 0 !important;
   margin: 0 !important;
 }
@@ -494,7 +533,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: -webkit-linear-gradient(45deg, rgba(0,0,0,0.9) 0%, rgba(0, 0, 0, 0.3) 65%, rgba(254,254,254,0) 100%);  pointer-events: none; /* Permite que los clics pasen a través del overlay */
+  background: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 100%
+  );
+  pointer-events: none; /* Permite que los clics pasen a través del overlay */
 }
 .carousel-container {
   display: flex;
@@ -682,3 +727,35 @@
   height: calc(100vh - var(--navbar-height));
 }
 
+.home {
+    position: relative;
+    min-height: 100vh;
+    z-index: 1;
+}
+
+.home::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--banner-image);
+    background-size: cover;
+    background-position: center;
+    filter: blur(80px) brightness(0.7);
+    transform: scale(1.1);
+    opacity: 0.5;
+    transition: all 0.5s ease-in-out;
+    z-index: -1;
+}
+
+/* Asegurar que el contenido esté por encima del fondo */
+.home > * {
+    position: relative;
+    z-index: 2;
+}
+.movie-details-container {
+  display: flex;
+  align-items: center;
+}
