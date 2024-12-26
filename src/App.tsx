@@ -155,7 +155,10 @@ const handlePageChange = async (page: number) => {
 };
 
   const goTop = () => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
   };
 
   return (
@@ -194,7 +197,11 @@ const handlePageChange = async (page: number) => {
 
       </Router>
       <div className='go-top-arrow' onClick={goTop}>
-        <ArrowUpward sx={{ color: darkMode ? 'white' : 'black', fontSize: 30 }} />
+        <ArrowUpward sx={{ 
+            color: darkMode ? 'white' : 'black', 
+            fontSize: 30,
+            boxShadow: 'none'
+        }} />
       </div>              
     </ThemeProvider>
   );

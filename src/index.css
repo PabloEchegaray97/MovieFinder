@@ -651,7 +651,7 @@
   margin: 0.5rem;
   padding: 1rem;
   color: white; /* Color del texto */
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para profundidad */
+  box-shadow: none !important; /* Eliminar sombra y forzar con !important */
   cursor: pointer;
   z-index: 10; /* Asegúrate de que esté por encima de otros elementos */
   display: flex;
@@ -661,6 +661,7 @@
   transition: 120ms ease-in;
   &:hover {
     opacity: 1;
+    box-shadow: none !important; /* Asegurar que no haya sombra en hover */
   }
 }
 
