@@ -54,7 +54,7 @@ const ActorList: React.FC<ActorListProps> = ({ actors }) => {
                                         borderRight: '2px solid rgba(255,255,255,0.1)'
                                     }}
                                     image={`https://image.tmdb.org/t/p/w300/${actor.profile_path}`}
-                                    alt={actor.name}
+                            alt={actor.name}
                                 />
                                 <Box sx={{ 
                                     display: 'flex', 

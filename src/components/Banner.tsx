@@ -3,7 +3,6 @@ import { Box, Skeleton, Typography } from '@mui/material';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Link } from 'react-router-dom';
-import { useTheme } from '@mui/material/styles';
 
 interface Genre {
   id: number;
@@ -22,7 +21,6 @@ const Banner: React.FC = () => {
   const [recentMovies, setRecentMovies] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<Genre[]>([]);
   const [imageLoading, setImageLoading] = useState<{ [key: number]: boolean }>({}); // Mover arriba
-  const theme = useTheme();
 
   useEffect(() => {
     const fetchRecentMovies = async () => {
@@ -95,14 +93,6 @@ const Banner: React.FC = () => {
 
   return (
     <section className="banner-container">
-      <Box className="banner-text-container">
-        <Typography variant="h4" sx={{ color: theme.palette.text.primary }} className='sec-font jcenter'>
-          Solo en MovieFinder
-        </Typography>
-        <Typography variant="body1" sx={{ color: theme.palette.text.primary }} className='sec-font jcenter'>
-          Descubre las películas que todos estan viendo
-        </Typography>
-      </Box>
       <Box className="fade-in">
         <Carousel
           showThumbs={false}

@@ -127,7 +127,7 @@ const MovieDetails: React.FC = () => {
 
                 </div>
                 <div>
-                    <Typography variant="h6" sx={{ color: theme.palette.text.primary }} className='mtop mbottom sec-font jcenter'>
+                    <Typography variant="h6" sx={{ color: theme.palette.text.primary, borderBottom: '2px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '1.5rem', textAlign: 'center' }} className='mbottom sec-font jcenter'>
                         ELENCO
                     </Typography>
                     <SecondaryActorList actors={actors} />
@@ -135,7 +135,7 @@ const MovieDetails: React.FC = () => {
                 {
                     providers && (
                         <Box>
-                            <Typography variant="h6" sx={{ color: theme.palette.text.primary }} className='mbottom sec-font jcenter'>
+                            <Typography variant="h6" sx={{ color: theme.palette.text.primary, borderBottom: '2px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '1.5rem', textAlign: 'center' }} className='mbottom sec-font jcenter'>
                             DISPONIBLE EN:
                         </Typography>
                             <Box className="d-center movie-providers">
@@ -190,7 +190,7 @@ const MovieDetails: React.FC = () => {
 
                 {video && (
                     <Box className="video-iframe-container">
-                        <Typography variant="h6" sx={{ color: theme.palette.text.primary }} className='mbottom sec-font jcenter'>
+                        <Typography variant="h6" sx={{ color: theme.palette.text.primary, borderBottom: '2px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '1.5rem', textAlign: 'center' }} className='mbottom sec-font jcenter'>
                             TRAILER
                         </Typography>
                         <iframe
