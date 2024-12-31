@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import MovieIcon from '@mui/icons-material/Movie';
+import { useNavigate } from 'react-router-dom';
 
-const MovieSearch: React.FC = () => {
+interface MovieSearchProps {
+    onSearch: (type: string, query: string) => void;
+}
+
+const MovieSearch: React.FC<MovieSearchProps> = ({ onSearch }) => {
+    const [searchQuery, setSearchQuery] = useState<string>('');
+    const navigate = useNavigate();
+
+    const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && searchQuery.trim()) {
+            onSearch('movie', searchQuery);
+            navigate('/');
+        }
+    };
+
     return (
         <Box sx={{ 
             minHeight: 'calc(100vh - 64px)',
@@ -40,6 +55,9 @@ const MovieSearch: React.FC = () => {
                     fullWidth
                     placeholder="Buscar películas..."
                     variant="outlined"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyPress={handleSearch}
                     sx={{
                         mb: 4,
                         '& .MuiOutlinedInput-root': {

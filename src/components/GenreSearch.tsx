@@ -1,68 +1,72 @@
-import React from 'react';
-import { Box, Typography, TextField, InputAdornment } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, FormControl, Select, MenuItem, SelectChangeEvent } from '@mui/material';
 import CategoryIcon from '@mui/icons-material/Category';
+import { useNavigate } from 'react-router-dom';
 
-const GenreSearch: React.FC = () => {
+interface GenreSearchProps {
+    onSearch: (type: string, query: string) => void;
+}
+
+const GenreSearch: React.FC<GenreSearchProps> = ({ onSearch }) => {
+    const [genres, setGenres] = useState<{ id: number, name: string }[]>([]);
+    const [selectedGenre, setSelectedGenre] = useState<string>('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchGenres = async () => {
+            try {
+                const apiKey = import.meta.env.VITE_API_KEY;
+                const response = await fetch(
+                    `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=es-ES`
+                );
+                const data = await response.json();
+                setGenres(data.genres);
+            } catch (error) {
+                console.error('Error fetching genres:', error);
+            }
+        };
+
+        fetchGenres();
+    }, []);
+
+    const handleGenreChange = (event: SelectChangeEvent<string>) => {
+        const genreId = event.target.value;
+        setSelectedGenre(genreId);
+        onSearch('genre', genreId);
+        navigate('/');
+    };
+
     return (
-        <Box sx={{ 
-            minHeight: 'calc(100vh - 64px)',
-            backgroundColor: 'background.default',
-            padding: '2rem'
-        }}>
-            <Box sx={{
-                maxWidth: '800px',
-                margin: '0 auto',
-                textAlign: 'center'
-            }}>
-                <CategoryIcon sx={{ fontSize: 60, color: 'success.main', mb: 2 }} />
-                <Typography 
-                    variant="h3" 
-                    sx={{ 
-                        color: 'text.primary',
-                        fontWeight: 'bold',
-                        mb: 2
-                    }}
-                >
-                    Explorar por Género
+        <Box sx={{ minHeight: 'calc(100vh - 64px)', backgroundColor: 'background.default', padding: '2rem' }}>
+            <Box sx={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+                <CategoryIcon sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
+                <Typography variant="h3" sx={{ color: 'text.primary', fontWeight: 'bold', mb: 2 }}>
+                    Buscar por Género
                 </Typography>
-                <Typography 
-                    variant="h6" 
-                    sx={{ 
-                        color: 'text.secondary',
-                        mb: 4
-                    }}
-                >
-                    Descubre películas por género, desde acción hasta drama
+                <Typography variant="h6" sx={{ color: 'text.secondary', mb: 4 }}>
+                    Encuentra películas por su género
                 </Typography>
                 
-                <TextField
-                    fullWidth
-                    placeholder="Buscar géneros..."
-                    variant="outlined"
-                    sx={{
-                        mb: 4,
-                        '& .MuiOutlinedInput-root': {
+                <FormControl fullWidth variant="outlined">
+                    <Select
+                        value={selectedGenre}
+                        onChange={handleGenreChange}
+                        displayEmpty
+                        sx={{
                             backgroundColor: 'background.paper',
-                        }
-                    }}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchIcon />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-
-                <Box sx={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                    gap: '2rem',
-                    mt: 4
-                }}>
-                    {/* Aquí puedes agregar una lista de géneros disponibles */}
-                </Box>
+                            mb: 4
+                        }}
+                    >
+                        <MenuItem value="" disabled>
+                            Selecciona un género
+                        </MenuItem>
+                        {genres.map((genre) => (
+                            <MenuItem key={genre.id} value={genre.id}>
+                                {genre.name}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
             </Box>
         </Box>
     );

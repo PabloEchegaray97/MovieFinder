@@ -193,9 +193,9 @@ const handlePageChange = async (page: number) => {
             <Route path="/movie/:id" element={<MovieDetails />} />
             <Route path="/actor/:id" element={<ActorDetails />} />
             
-            <Route path="/movies" element={<MovieSearch />} />
-            <Route path="/artists" element={<ActorSearch />} />
-            <Route path="/genres" element={<GenreSearch />} />
+            <Route path="/movies" element={<MovieSearch onSearch={handleSearch} />} />
+            <Route path="/artists" element={<ActorSearch onSearch={handleSearch} />} />
+            <Route path="/genres" element={<GenreSearch onSearch={handleSearch} />} />
           </Routes>
         </MainContainer>
         <Footer darkMode={darkMode} />
