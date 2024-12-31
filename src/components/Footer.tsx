@@ -7,8 +7,8 @@ import MovieFilterOutlinedIcon from '@mui/icons-material/MovieFilterOutlined';
 import { useTheme } from '@mui/material/styles';
 import Icon from '@mdi/react';
 import { mdiReact, mdiLanguageTypescript } from '@mdi/js';
-import DeveloperModeIcon from '@mui/icons-material/DeveloperMode'; // Representa Material-UI
 import { mdiMaterialUi } from '@mdi/js';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 interface FooterProps {
     darkMode: boolean;
@@ -43,6 +43,7 @@ const Footer: React.FC<FooterProps> = ({darkMode}) => {
                     <Typography>Hecho con:</Typography>
                 </Box>
                 <Box className="d-center footer-links">
+                    <FavoriteIcon className='heart-icon' sx={{ fontSize: '140%' }} />
                     <Icon path={mdiMaterialUi} size={1.2} className='footer-icon' />
                     <Icon path={mdiReact} size={1.2} />
                     <Icon path={mdiLanguageTypescript} size={1.2} />

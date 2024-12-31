@@ -393,6 +393,7 @@
   /*background-color: red;*/
   padding: 1rem 0;
   box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+  z-index: 100;
 }
 .d-center {
   display: flex;
@@ -747,7 +748,7 @@
     transform: scale(1.1);
     opacity: 0.5;
     transition: all 0.5s ease-in-out;
-    z-index: -1;
+    z-index: 0;
 }
 
 /* Asegurar que el contenido esté por encima del fondo */
@@ -758,4 +759,17 @@
 .movie-details-container {
   display: flex;
   align-items: center;
+}
+.mtop-3 {
+  margin-top: 3rem !important;
+}
+
+.footer-container {
+    position: relative;
+    z-index: 2;
+}
+.heart-icon {
+  &:hover {
+    color: red;
+  }
 }

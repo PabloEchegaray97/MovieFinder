@@ -164,7 +164,7 @@ const Home: React.FC<HomeProps> = ({
                         <GenreSelector />
                     </Box>
 
-                    <Box className="d-center d-center-c m2 mtop2 m1">
+                    <Box className="d-center d-center-c mtop-3 mbottom-3">
                         <Box className="w50">
                             <Typography variant="h4" sx={{ color: 'text.primary' }} className='sec-font jcenter'>
                                 Tus artistas favoritos
@@ -188,7 +188,7 @@ const Home: React.FC<HomeProps> = ({
                                     minHeight: '50vh'
                                 }}
                             >
-                                <CircularProgress size={20} sx={{ color: 'text.primary' }} />
+                                <CircularProgress size={60} sx={{ color: 'text.primary' }} />
                             </Box>
                         ) : searchType === 'movie' || searchType === 'genre' ? (
                             <MovieList movies={searchResults as MovieItem[]} />
@@ -204,7 +204,10 @@ const Home: React.FC<HomeProps> = ({
                             <Pagination
                                 count={totalPages}
                                 page={currentPage}
-                                onChange={(_, page) => onPageChange(page)}
+                                onChange={(_, page) => {
+                                    window.scrollTo(0, 0);
+                                    onPageChange(page);
+                                }}
                                 siblingCount={1}
                                 boundaryCount={1}
                                 sx={{ marginBottom: "1rem" }}
