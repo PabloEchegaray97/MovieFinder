@@ -36,25 +36,53 @@ const ActorList: React.FC<ActorListProps> = ({ actors }) => {
                     <Grid item key={actor.id}>
                         <Link to={`/actor/${actor.id}`} style={{ textDecoration: 'none' }}>
                             <Card sx={{ 
-                                width: 300,
-                                height: 160,
+                                width: 320,
+                                height: 180,
                                 backgroundColor: 'background.paper',
                                 transition: 'all 0.3s ease',
                                 display: 'flex',
+                                position: 'relative',
+                                overflow: 'hidden',
                                 '&:hover': {
                                     transform: 'scale(1.03)',
-                                    boxShadow: '0 8px 16px rgba(0,0,0,0.2)'
+                                    boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
+                                },
+                                '@keyframes shineEffect': {
+                                    '0%': {
+                                        transform: 'translateX(-100%)',
+                                    },
+                                    '100%': {
+                                        transform: 'translateX(100%)',
+                                    }
+                                },
+                                '&::before': {
+                                    content: '""',
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '200%',
+                                    height: '100%',
+                                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+                                    transform: 'translateX(-100%)',
+                                    zIndex: 1,
+                                },
+                                '&:hover::before': {
+                                    animation: 'shineEffect 0.6s ease',
+                                },
+                                '&:not(:hover)::before': {
+                                    animation: 'none',
+                                    transform: 'translateX(-100%)',
                                 }
                             }}>
                                 <CardMedia
                                     component="img"
                                     sx={{ 
-                                        width: '10rem',
+                                        width: '12rem',
                                         objectFit: 'cover',
                                         borderRight: '2px solid rgba(255,255,255,0.1)'
                                     }}
                                     image={`https://image.tmdb.org/t/p/w300/${actor.profile_path}`}
-                            alt={actor.name}
+                                    alt={actor.name}
                                 />
                                 <Box sx={{ 
                                     display: 'flex', 

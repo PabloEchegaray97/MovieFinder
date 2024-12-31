@@ -127,7 +127,7 @@ const ActorDetails: React.FC = () => {
                 </Box>
                 <Box className="actor-details-poster" textAlign="center">
                     <Card sx={{ 
-                        width: '100%',
+                        width: '95%',
                         backgroundColor: 'background.paper',
                         transition: 'all 0.3s ease',
                         display: 'flex',
@@ -139,8 +139,8 @@ const ActorDetails: React.FC = () => {
                             <CardMedia
                                 component="img"
                                 sx={{ 
-                                    width: '10rem',
-                                    height: '160px',
+                                    width: '18rem',
+                                    height: '260px',
                                     objectFit: 'cover',
                                     borderRight: '2px solid rgba(255,255,255,0.1)'
                                 }}
@@ -158,7 +158,7 @@ const ActorDetails: React.FC = () => {
                                     component="div" 
                                     sx={{ 
                                         color: 'text.primary',
-                                        fontSize: '1.1rem',
+                                        fontSize: '1.5rem',
                                         fontWeight: 'bold',
                                         mb: 1
                                     }}
@@ -243,7 +243,7 @@ const ActorDetails: React.FC = () => {
                                 </Stack>
                             </Box>
                         </Box>
-                        <Box sx={{ padding: '0.5rem' }} className='actor-details-info'>
+                        <Box className='actor-details-info'>
                             <Typography variant="body2" sx={{ mb: 0.5 }}>
                                 <strong>Fecha de Nacimiento:</strong> {actorDetails.birthday}
                             </Typography>

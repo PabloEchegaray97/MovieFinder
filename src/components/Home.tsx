@@ -10,6 +10,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import MovieIcon from '@mui/icons-material/Movie';
 import PersonIcon from '@mui/icons-material/Person';
 import CategoryIcon from '@mui/icons-material/Category';
+import PopularSagas from './PopularSagas';
+import AwardedMovies from './AwardedMovies';
 
 const Home: React.FC<HomeProps> = ({
     searchResults,
@@ -174,6 +176,8 @@ const Home: React.FC<HomeProps> = ({
                             </Typography>
                         </Box>
                         <PersonGallerySelector />
+                        <AwardedMovies/>
+                        <PopularSagas/>
                     </Box>
                 </>
             ) : (
