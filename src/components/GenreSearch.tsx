@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, FormControl, Select, MenuItem, SelectChangeEvent } from '@mui/material';
 import CategoryIcon from '@mui/icons-material/Category';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
 
 interface GenreSearchProps {
     onSearch: (type: string, query: string) => void;
@@ -11,6 +12,7 @@ const GenreSearch: React.FC<GenreSearchProps> = ({ onSearch }) => {
     const [genres, setGenres] = useState<{ id: number, name: string }[]>([]);
     const [selectedGenre, setSelectedGenre] = useState<string>('');
     const navigate = useNavigate();
+    const theme = useTheme();
 
     useEffect(() => {
         const fetchGenres = async () => {
@@ -37,10 +39,29 @@ const GenreSearch: React.FC<GenreSearchProps> = ({ onSearch }) => {
     };
 
     return (
-        <Box sx={{ minHeight: 'calc(100vh - 64px)', backgroundColor: 'background.default', padding: '2rem' }}>
-            <Box sx={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-                <CategoryIcon sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
-                <Typography variant="h3" sx={{ color: 'text.primary', fontWeight: 'bold', mb: 2 }}>
+        <Box sx={{ 
+            minHeight: 'calc(100vh - 64px)',
+            backgroundColor: 'background.default',
+            padding: '2rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+        }}>
+            <Box sx={{
+                maxWidth: '800px',
+                margin: '0 auto',
+                textAlign: 'center',
+                width: '100%'
+            }}>
+                <CategoryIcon sx={{ fontSize: 100, color: theme.palette.text.primary, mb: 2 }} />
+                <Typography 
+                    variant="h3" 
+                    sx={{ 
+                        color: 'text.primary',
+                        fontWeight: 'bold',
+                        mb: 2
+                    }}
+                >
                     Buscar por Género
                 </Typography>
                 <Typography variant="h6" sx={{ color: 'text.secondary', mb: 4 }}>

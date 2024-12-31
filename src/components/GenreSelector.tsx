@@ -149,7 +149,14 @@ const GenreSelector: React.FC = () => {
         <Box className="genre-movies-grid">
           {Array.from({ length: 6 }).map((_, index) => (
             <Box key={index} className="movie-grid-container">
-              <Skeleton variant="rectangular" className='genre-img-grid' sx={{height:'10rem'}}/>
+              <Skeleton 
+                variant="rectangular" 
+                className='genre-img-grid' 
+                sx={{
+                  height: '14rem',
+                  width: '100%'
+                }}
+              />
             </Box>
           ))}
         </Box>
@@ -166,7 +173,8 @@ const GenreSelector: React.FC = () => {
                       animation="wave"
                       sx={{
                         backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                        height: '10rem',
+                        height: '14rem',
+                        width: '100%',
                         transform: 'none'
                       }}
                     />
@@ -175,7 +183,12 @@ const GenreSelector: React.FC = () => {
                     src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                     alt={movie.title}
                     className='genre-img-grid'
-                    style={{ display: imagesLoaded[movie.id] ? 'block' : 'none' }}
+                    style={{ 
+                      display: imagesLoaded[movie.id] ? 'block' : 'none',
+                      height: '14rem',
+                      width: '100%',
+                      objectFit: 'cover'
+                    }}
                     onLoad={() => handleImageLoad(movie.id)}
                   />
                   <Typography
@@ -186,7 +199,7 @@ const GenreSelector: React.FC = () => {
                       bottom: 0,
                       left: 0,
                       width: '100%',
-                      height: '100%',
+                      height: '14rem',
                       color: 'white',
                       backgroundColor: 'rgba(0, 0, 0, 0)',
                       padding: '10px 0',

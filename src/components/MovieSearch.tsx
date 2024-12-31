@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, TextField, InputAdornment } from '@mui/material';
+import { Box, Typography, TextField, InputAdornment, useTheme } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import MovieIcon from '@mui/icons-material/Movie';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ interface MovieSearchProps {
 const MovieSearch: React.FC<MovieSearchProps> = ({ onSearch }) => {
     const [searchQuery, setSearchQuery] = useState<string>('');
     const navigate = useNavigate();
+    const theme = useTheme();
 
     const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && searchQuery.trim()) {
@@ -23,14 +24,18 @@ const MovieSearch: React.FC<MovieSearchProps> = ({ onSearch }) => {
         <Box sx={{ 
             minHeight: 'calc(100vh - 64px)',
             backgroundColor: 'background.default',
-            padding: '2rem'
+            padding: '2rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
         }}>
             <Box sx={{
                 maxWidth: '800px',
                 margin: '0 auto',
-                textAlign: 'center'
+                textAlign: 'center',
+                width: '100%'
             }}>
-                <MovieIcon sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
+                <MovieIcon sx={{ fontSize: 100, color: theme.palette.text.primary, mb: 2 }} />
                 <Typography 
                     variant="h3" 
                     sx={{ 
