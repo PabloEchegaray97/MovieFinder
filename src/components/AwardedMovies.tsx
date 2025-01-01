@@ -91,7 +91,7 @@ const AwardedMovies: React.FC = () => {
     }
 
     return (
-        <Box sx={{ py: 4 }}>
+        <Box sx={{ py: 4 }} mt={3}>
             <Typography 
                 variant="h5" 
                 sx={{ 

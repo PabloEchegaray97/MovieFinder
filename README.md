@@ -1,30 +1,44 @@
-# React + TypeScript + Vite
+# 🎬 Movie Finder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📝 Descripción
+Movie Finder es una aplicación web desarrollada con React y TypeScript que permite a los usuarios explorar y descubrir información sobre películas. Utiliza la API de TMDB para proporcionar datos actualizados sobre películas, incluyendo detalles, calificaciones y más.
 
-Currently, two official plugins are available:
+## ✨ Características
+- 🌓 Modo oscuro/claro
+- 🔍 Búsqueda de películas en tiempo real
+- 📱 Diseño responsivo
+- 🎯 Filtrado por categorías
+- 📊 Detalles completos de películas
+- ⭐ Calificaciones y reseñas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠 Tecnologías Utilizadas
+- React
+- TypeScript
+- Material-UI
+- React Router
+- TMDB API
+- Vite
 
-## Expanding the ESLint configuration
+## 🔴 Demo en Vivo
+[Ver Demo](https://moviefinder-react-typescript-pae.netlify.app/)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🚀 Instalación y Uso
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+1. Clona el repositorio:
+```bash 
+git clone https://github.com/pae-dev/movie-finder-frontend.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Instala las dependencias:
+```bash
+npm install
+```
+
+3. Inicia el servidor de desarrollo:
+```bash
+npm run dev
+```
+Importante:
+Agregar la API key en el archivo .env.example y renombrarlo a .env.
+
+

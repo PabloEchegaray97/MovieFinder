@@ -74,9 +74,9 @@ const Footer: React.FC<FooterProps> = ({darkMode}) => {
                 </Box>
                 <Box className="d-center footer-links">
                     <FavoriteIcon className='red-hover' sx={{ fontSize: '240%' }} />
-                    <Icon path={mdiMaterialUi} size={1.7} className='footer-icon' />
-                    <Icon path={mdiReact} size={1.7} />
-                    <Icon path={mdiLanguageTypescript} size={1.7} />
+                    <Icon path={mdiMaterialUi} size={1.7} className='footer-icon blue-hover' />
+                    <Icon path={mdiReact} size={1.7} className='footer-icon blue-hover' />
+                    <Icon path={mdiLanguageTypescript} size={1.7} className='footer-icon blue-hover' />
                 </Box>
 
 

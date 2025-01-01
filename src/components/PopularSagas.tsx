@@ -113,7 +113,7 @@ const PopularSagas: React.FC = () => {
     }
 
     return (
-        <Box sx={{ py: 4 }}>
+        <Box >
             <Typography 
                 variant="h5" 
                 sx={{ 

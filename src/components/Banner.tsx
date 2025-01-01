@@ -138,7 +138,7 @@ const Banner: React.FC = () => {
                 background: 'linear-gradient(to right, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%)'
               }}
             >
-              <span className="carousel-arrow-prev">❮</span>
+              <span className="carousel-arrow-prev glow">❮</span>
             </div>
           )}
           renderArrowNext={(clickHandler) => (
@@ -158,7 +158,7 @@ const Banner: React.FC = () => {
                 background: 'linear-gradient(to left, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%)'
               }}
             >
-              <span className="carousel-arrow-next">❯</span>
+              <span className="carousel-arrow-next glow">❯</span>
             </div>
           )}
           onChange={handleSlideChange}

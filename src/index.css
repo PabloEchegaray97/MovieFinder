@@ -814,4 +814,6 @@
     text-shadow: none;
   }
 }
-
+.glow {
+    color: #ffffff;
+}
