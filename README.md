@@ -20,7 +20,7 @@ Movie Finder es una aplicación web desarrollada con React y TypeScript que perm
 - Vite
 
 ## 🔴 Demo en Vivo
-<a href="https://moviefinder-react-typescript-pae.netlify.app/" target="_blank" rel="noopener noreferrer">Ver Demo</a>
+[Ver Demo](https://moviefinder-react-typescript-pae.netlify.app/) (Click derecho + "Abrir en nueva pestaña")
 
 ## 🚀 Instalación y Uso
 
