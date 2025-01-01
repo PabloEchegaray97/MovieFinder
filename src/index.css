@@ -847,3 +847,21 @@
     font-size: .8rem !important;
   }
 }
+@media (max-width: 768px) {
+  .actor-data {
+    flex-direction: column-reverse;
+  }
+  .actor-details-poster {
+    width: 90vw !important;
+  }
+  .actor-data-text {
+    width: 90vw;
+  }
+  .actor-data-title {
+    text-align: center;
+  }
+  .modal-content {
+    width: 60vw;
+  }
+  
+}

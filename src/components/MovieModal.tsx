@@ -1,7 +1,10 @@
 import React from 'react';
-import { Modal, Typography, Button, Box } from '@mui/material';
+import { Modal, Typography, Button, Box, useTheme } from '@mui/material';
 import { MovieItem } from './ActorDetails';
 import dayjs from 'dayjs';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import CakeIcon from '@mui/icons-material/Cake';
+import { alpha } from '@mui/material/styles';
 
 interface MovieModalProps {
     open: boolean;
@@ -11,6 +14,7 @@ interface MovieModalProps {
 }
 
 const MovieModal: React.FC<MovieModalProps> = ({ open, handleClose, movie, actorBirthday }) => {
+    const theme = useTheme();
 
     if (!movie) return null;
 
@@ -33,9 +37,9 @@ const MovieModal: React.FC<MovieModalProps> = ({ open, handleClose, movie, actor
             
         >
             <Box className="modal-content" sx={{ 
-                backgroundColor: 'background.paper',
+                backgroundColor: alpha(theme.palette.background.paper, 0.8),
                 overflow: 'hidden',
-                width: '20rem',
+                width: '30rem',
                 maxHeight: '90vh',
                 display: 'flex',
                 flexDirection: 'column',
@@ -43,7 +47,7 @@ const MovieModal: React.FC<MovieModalProps> = ({ open, handleClose, movie, actor
             }}>
                 <Box sx={{ 
                     flex: '1 1 auto',
-                    minHeight: '20rem',
+                    minHeight: '35rem',
                     position: 'relative'
                 }}>
                     <img
@@ -55,7 +59,7 @@ const MovieModal: React.FC<MovieModalProps> = ({ open, handleClose, movie, actor
                         style={{ 
                             width: '100%',
                             height: '100%',
-                            objectFit: 'cover',
+                            objectFit: 'contain',
                             position: 'absolute',
                             top: 0,
                             left: 0
@@ -69,12 +73,31 @@ const MovieModal: React.FC<MovieModalProps> = ({ open, handleClose, movie, actor
                     <Typography variant="h6" component="h2" noWrap>
                         {movie.title}
                     </Typography>
-                    <Typography variant="body2" sx={{ mt: 1 }}>
-                        Fecha de Estreno: {movie.release_date}
-                    </Typography>
-                    <Typography variant="body2">
-                        Edad del actor cuando se estrenó: {actorBirthday ? `${ageAtRelease} años` : 'Desconocida'}
-                    </Typography>
+                    <Box sx={{ mt: 2 }}>
+                        <Typography 
+                            variant="body2" 
+                            sx={{ 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                gap: 1,
+                                mb: 1
+                            }}
+                        >
+                            <CalendarMonthIcon fontSize="small" />
+                            <strong>Fecha de Estreno:</strong> {dayjs(movie.release_date).format('DD/MM/YYYY')}
+                        </Typography>
+                        <Typography 
+                            variant="body2" 
+                            sx={{ 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                gap: 1
+                            }}
+                        >
+                            <CakeIcon fontSize="small" />
+                            <strong>Edad del actor al momento del estreno:</strong> {actorBirthday ? `${ageAtRelease} años` : 'Desconocida'}
+                        </Typography>
+                    </Box>
                     <Button
                         variant="contained"
                         fullWidth

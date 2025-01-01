@@ -104,7 +104,7 @@ const ActorDetails: React.FC = () => {
                         }}>
                             <Typography 
                                 variant="h6" 
-                                className='mbottom'
+                                className='mbottom actor-data-title'
                                 sx={{
                                     borderBottom: '2px solid rgba(255,255,255,0.1)',
                                     paddingBottom: '0.5rem',

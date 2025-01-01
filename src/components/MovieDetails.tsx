@@ -102,7 +102,11 @@ const MovieDetails: React.FC = () => {
                 <div className='movie-details-container'>
 
                 <Box className="movie-details-text">
-                    <Typography variant="h2" className='movie-title'>
+                    <Typography 
+                        variant="h2" 
+                        className='movie-title'
+                        sx={{ color: theme.palette.text.primary }}
+                    >
                         {movieDetails.title}
                     </Typography>
 
