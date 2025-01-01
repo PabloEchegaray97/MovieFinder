@@ -119,7 +119,7 @@ const PopularSagas: React.FC = () => {
                 sx={{ 
                     mb: 1,
                     textAlign: 'center',
-                    color: theme.palette.text.secondary
+                    color: theme.palette.text.secondary,
                 }}
             >
                 Descubre las sagas más populares del cine
@@ -144,6 +144,7 @@ const PopularSagas: React.FC = () => {
                             maxWidth: '50vw',
                             margin: '0 auto',
                             overflow: 'auto',
+                            px: 2,
                             '&::-webkit-scrollbar': {
                                 height: 8,
                             },
@@ -165,39 +166,55 @@ const PopularSagas: React.FC = () => {
                                 pb: 2,
                                 justifyContent: collection.parts.length <= 4 ? 'center' : 'flex-start',
                                 width: collection.parts.length <= 4 ? '100%' : 'fit-content',
-                                mx: 'auto'
+                                mx: 0
                             }}
                         >
                             {collection.parts.map((movie: Movie) => (
-                                <Grid item key={movie.id}>
+                                <Grid item key={movie.id} sx={{ pl: 2 }}>
                                     <Link to={`/movie/${movie.id}`} style={{ textDecoration: 'none' }}>
                                         <Card sx={{ 
-                                            width: 200,
+                                            height: '21rem',
+                                            width: '16rem',
                                             transition: 'transform 0.3s',
                                             '&:hover': {
                                                 transform: 'scale(1.05)'
                                             },
-                                            bgcolor: 'background.paper'
+                                            bgcolor: 'background.paper',
+                                            position: 'relative'
                                         }}>
                                             {movie.poster_path && (
-                                                <CardMedia
-                                                    component="img"
-                                                    height={300}
-                                                    image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                                    alt={movie.title}
-                                                />
+                                                <>
+                                                    <CardMedia
+                                                        component="img"
+                                                        image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                                        alt={movie.title}
+                                                        sx={{
+                                                            height: '21rem',
+                                                            width: '16rem',
+                                                            objectFit: 'cover'
+                                                        }}
+                                                    />
+                                                    <Box sx={{ 
+                                                        position: 'absolute',
+                                                        bottom: 0,
+                                                        left: 0,
+                                                        right: 0,
+                                                        p: 1,
+                                                        background: 'rgba(0, 0, 0, 0.7)',
+                                                    }}>
+                                                        <Typography 
+                                                            variant="subtitle1" 
+                                                            sx={{ 
+                                                                color: 'white',
+                                                                textAlign: 'center',
+                                                                fontWeight: 'bold'
+                                                            }}
+                                                        >
+                                                            {new Date(movie.release_date).getFullYear()}
+                                                        </Typography>
+                                                    </Box>
+                                                </>
                                             )}
-                                            <Box sx={{ p: 1 }}>
-                                                <Typography 
-                                                    variant="subtitle1" 
-                                                    sx={{ 
-                                                        color: theme.palette.text.primary,
-                                                        textAlign: 'center' 
-                                                    }}
-                                                >
-                                                    {new Date(movie.release_date).getFullYear()}
-                                                </Typography>
-                                            </Box>
                                         </Card>
                                     </Link>
                                 </Grid>

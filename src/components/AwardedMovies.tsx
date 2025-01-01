@@ -134,14 +134,18 @@ const AwardedMovies: React.FC = () => {
                     }}
                 >
                     {movies.map((movie) => (
-                        <Grid item key={movie.id}>
+                        <Grid item key={movie.id}> 
                             <Card 
                                 onClick={() => navigate(`/movie/${movie.id}`)}
                                 sx={{ 
-                                    width: 250,
-                                    height: '100%',
+                                    width: '16rem',
                                     display: 'flex',
+                                    height: '100%',
                                     flexDirection: 'column',
+                                    background: (theme) => 
+                                        theme.palette.mode === 'dark' 
+                                            ? 'rgba(0, 0, 0, 0.2)' 
+                                            : 'rgba(255, 255, 255, 0.2)',
                                     cursor: 'pointer',
                                     '&:hover': {
                                         transform: 'scale(1.05)',
@@ -151,9 +155,13 @@ const AwardedMovies: React.FC = () => {
                             >
                                 <CardMedia
                                     component="img"
-                                    height="375"
                                     image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                                     alt={movie.title}
+                                    sx={{
+                                        height: '21rem',
+                                        width: '17rem',
+                                        objectFit: 'cover'
+                                    }}
                                 />
                                 <CardContent>
                                     <Typography gutterBottom variant="h6" component="div">

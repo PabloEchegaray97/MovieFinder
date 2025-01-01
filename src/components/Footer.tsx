@@ -32,7 +32,7 @@ const Footer: React.FC<FooterProps> = ({darkMode}) => {
 
         }}>
             <Box>
-                <Link to="/" style={{ textDecoration: 'none' }} onClick={() => handleNavigation('/')}>
+                <Link to="/" className='movie-finder' style={{ textDecoration: 'none' }} onClick={() => handleNavigation('/')}>
                     <Typography 
                         variant="h6" 
                         component="div" 
@@ -54,17 +54,29 @@ const Footer: React.FC<FooterProps> = ({darkMode}) => {
                     <Box onClick={() => handleNavigation('/artists')} className='footer-link' style={{ color: theme.palette.text.primary, cursor: 'pointer' }}>Personas</Box>
                 </Box>
                 <Box className="d-center">
-                    <LinkedInIcon sx={{ marginRight: 2, cursor: 'pointer', fontSize: '180%' }} />
-                    <GitHubIcon sx={{ cursor: 'pointer', fontSize: '180%' }} />
+                    <Link 
+                        to="https://www.linkedin.com/in/pablo-agustin-echegaray"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <LinkedInIcon sx={{ marginRight: 2, cursor: 'pointer', fontSize: '240%', color: theme.palette.text.primary }} className='blue-hover' />
+                    </Link>
+                    <Link 
+                        to="https://github.com/PabloEchegaray97"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <GitHubIcon sx={{ cursor: 'pointer', fontSize: '240%', color: theme.palette.text.primary }} className='green-hover' />
+                    </Link>
                 </Box>
                 <Box className="d-center mtop">
                     <Typography>Hecho con:</Typography>
                 </Box>
                 <Box className="d-center footer-links">
-                    <FavoriteIcon className='heart-icon' sx={{ fontSize: '140%' }} />
-                    <Icon path={mdiMaterialUi} size={1.2} className='footer-icon' />
-                    <Icon path={mdiReact} size={1.2} />
-                    <Icon path={mdiLanguageTypescript} size={1.2} />
+                    <FavoriteIcon className='red-hover' sx={{ fontSize: '240%' }} />
+                    <Icon path={mdiMaterialUi} size={1.7} className='footer-icon' />
+                    <Icon path={mdiReact} size={1.7} />
+                    <Icon path={mdiLanguageTypescript} size={1.7} />
                 </Box>
 
 

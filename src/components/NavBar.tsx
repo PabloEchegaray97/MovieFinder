@@ -34,7 +34,6 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
     const [genres, setGenres] = useState<{ id: number, name: string }[]>([]);
     const [selectedGenre, setSelectedGenre] = useState<number | string>('');
     const apiKey = import.meta.env.VITE_API_KEY;
-    const apiUrl = import.meta.env.VITE_API_URL;
     useEffect(() => {
         if (searchType === 'genre' && genres.length === 0) {
             // Llamada a la API para obtener los géneros
@@ -52,7 +51,7 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
     
             fetchGenres();
         }
-    }, [searchType, genres]);
+    }, [searchType, genres, apiKey]);
     
 
     useEffect(() => {
@@ -91,7 +90,7 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
         >
             <Toolbar className="navbar-content">
                 <Box className="navbar-logo-container" sx={{ color: darkMode ? 'white' : 'black' }}>
-                    <Link to="/" className="navbar-title" style={{ display: 'flex', alignItems: 'center', color: darkMode ? 'white' : 'black' }}>
+                    <Link to="/" className="navbar-title" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} style={{ display: 'flex', alignItems: 'center', color: darkMode ? 'white' : 'black' }}>
                         <MovieFilterOutlinedIcon sx={{ mr: 1, color: darkMode ? 'white' : 'black' }} />
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: darkMode ? 'white' : 'black' }}>
                             <span className='text-thin'>MovieFinder</span>
