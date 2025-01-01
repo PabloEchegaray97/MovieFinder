@@ -817,3 +817,33 @@
 .glow {
     color: #ffffff;
 }
+/*Movie details mobile*/
+@media (max-width: 768px) {
+  .movie-details-container {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .movie-poster {
+    height: 50dvh;
+  }
+  .movie-details-text {
+    width: 90vw;
+  }
+  .movie-title {
+    font-size: 3rem !important;
+  }
+  .movie-subtitle {
+    text-align: center;
+    padding-top: .3rem;
+  }
+  .movie-topics {
+    margin-top: 1rem ;
+  }
+  .video-iframe {
+    width: 90vw;
+    height: 30dvh;
+  }
+  .movie-toggle-button {
+    font-size: .8rem !important;
+  }
+}

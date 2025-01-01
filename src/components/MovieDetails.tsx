@@ -109,7 +109,7 @@ const MovieDetails: React.FC = () => {
                     <Typography 
                         variant="body1" 
                         sx={{ color: theme.palette.text.secondary }}
-                        className='mtop-m'
+                        className='mtop-m movie-subtitle'
                     >
                         {`${new Date(movieDetails.release_date).getFullYear()} • ${formattedRuntime} • ${movieDetails.genres.map(genre => genre.name).join(', ')} • Clasificación: ${movieDetails.certification}`}
                     </Typography>
@@ -134,8 +134,8 @@ const MovieDetails: React.FC = () => {
                 </Box>
                 </div>
 
-                <div>
-                    <Typography variant="h6" sx={{ color: theme.palette.text.primary, borderBottom: '2px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '1.5rem', textAlign: 'center' }} className='mbottom sec-font jcenter'>
+                <div className='movie-topics'>
+                    <Typography variant="h6" sx={{ color: theme.palette.text.primary, borderBottom: '2px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '1.5rem', textAlign: 'center' }} className='mbottom sec-font jcenter movie-topics'>
                         ELENCO
                     </Typography>
                     <SecondaryActorList actors={actors} />
@@ -231,6 +231,7 @@ const MovieDetails: React.FC = () => {
                             textTransform: 'uppercase',
                             color: showContent === 'suggestions' ? theme.palette.text.primary : theme.palette.text.secondary,
                         }}
+                        className='movie-toggle-button'
                     >
                         Recomendaciones
                     </ToggleButton>
@@ -244,6 +245,7 @@ const MovieDetails: React.FC = () => {
                             textTransform: 'uppercase',
                             color: showContent === 'details' ? theme.palette.text.primary : theme.palette.text.secondary,
                         }}
+                        className='movie-toggle-button'
                     >
                         Detalles adicionales
                     </ToggleButton>
@@ -348,7 +350,10 @@ const MovieDetails: React.FC = () => {
                                             Presupuesto
                                         </Typography>
                                         <Typography variant="h6" sx={{ color: 'text.primary' }}>
-                                            ${movieDetails.budget.toLocaleString()}
+                                            {movieDetails.budget > 0 
+                                                ? `$${movieDetails.budget.toLocaleString()}`
+                                                : 'Sin datos disponibles'
+                                            }
                                         </Typography>
                                     </Box>
                                     <Box sx={{ mb: 3 }}>
@@ -356,7 +361,10 @@ const MovieDetails: React.FC = () => {
                                             Ingresos
                                         </Typography>
                                         <Typography variant="h6" sx={{ color: 'text.primary' }}>
-                                            ${movieDetails.revenue.toLocaleString()}
+                                            {movieDetails.revenue > 0 
+                                                ? `$${movieDetails.revenue.toLocaleString()}`
+                                                : 'Sin datos disponibles'
+                                            }
                                         </Typography>
                                     </Box>
                                 </Grid>
