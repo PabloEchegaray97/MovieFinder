@@ -962,3 +962,18 @@
     font-size: 1rem;
   }
 }
+
+@media (max-width: 800px) {
+  .genre-movies-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .genre-movies-grid .genre-img-grid {
+    height: 10rem;
+  }
+
+  .genre-movies-grid .movie-grid-container .genre-movie-title {
+    height: 10rem;
+  }
+}

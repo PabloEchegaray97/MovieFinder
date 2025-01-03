@@ -81,7 +81,8 @@ const GenreSelector: React.FC = () => {
             language: 'es-ES',
           },
         });
-        setMovies(response.data.results.slice(0, 6)); // Obtener 6 películas
+        const isMobile = window.innerWidth < 800;
+        setMovies(response.data.results.slice(0, isMobile ? 4 : 6)); // Obtener 4 o 6 películas
       } catch (error) {
         console.error('Error fetching movies:', error);
       } finally {
