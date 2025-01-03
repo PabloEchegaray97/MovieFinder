@@ -91,7 +91,7 @@ const AwardedMovies: React.FC = () => {
     }
 
     return (
-        <Box sx={{ py: 4 }} mt={3}>
+        <Box className="awarded-movies-container section-container">
             <Typography 
                 variant="h5" 
                 sx={{ 
@@ -104,9 +104,9 @@ const AwardedMovies: React.FC = () => {
             </Typography>
 
             <Box
+                className="awarded-movies-container-scroll"
                 sx={{
                     width: '100%',
-                    maxWidth: '50vw',
                     margin: '0 auto',
                     overflow: 'auto',
                     '&::-webkit-scrollbar': {
@@ -132,6 +132,7 @@ const AwardedMovies: React.FC = () => {
                         width: movies.length <= 4 ? '100%' : 'fit-content',
                         mx: 'auto'
                     }}
+                    className="awarded-movies-container-grid"
                 >
                     {movies.map((movie) => (
                         <Grid item key={movie.id}> 

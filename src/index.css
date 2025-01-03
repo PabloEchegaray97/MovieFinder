@@ -817,8 +817,14 @@
 .glow {
     color: #ffffff;
 }
+.awarded-movies-container-scroll {
+  max-width: 50vw;
+}
+.popular-sagas-container-scroll {
+  max-width: 50vw;
+}
 /*Movie details mobile*/
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .movie-details-container {
     flex-direction: column-reverse;
     align-items: center;
@@ -847,7 +853,7 @@
     font-size: .8rem !important;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .actor-data {
     flex-direction: column-reverse;
   }
@@ -863,5 +869,96 @@
   .modal-content {
     width: 60vw;
   }
+}
+@media (max-width: 1024px) {
+  .home-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    justify-content: center;
+  }
   
+  .home-container-text {
+    width: 90vw;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .home-container-buttons {
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  /* Separar los estilos del banner en clases específicas */
+  .banner-container {
+    flex-direction: column;
+    margin:0;
+    width: 100vw;
+    min-height: 40dvh;
+  }
+  
+  .banner-container .carousel {
+    width: 90vw;
+    height: 40dvh;
+  }
+  
+  .banner-container img {
+    width: 90vw;
+    height: 40dvh;
+    object-fit: cover;
+    align-items: flex-start;
+  }
+  .section-container {
+    margin: 0;
+    margin-bottom: 2rem;
+  }
+  .section-container > h4 {
+    font-size: 1.5rem;
+  }
+  .genre-container {
+    width: 90vw;
+  }
+  .person-gallery-container {
+    width: 90vw;
+  }
+  .awarded-movies-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .awarded-movies-container-scroll {
+    max-width: 90vw;
+  }
+  .awarded-movies-container-grid {
+    max-width: 90vw;
+  }
+  .popular-sagas-container {
+    max-width: 90vw;
+  }
+  .popular-sagas-container-scroll {
+    max-width: 90vw;
+  }
+  .popular-sagas-container-grid {
+    max-width: 90vw;
+  }
+  .home-container-buttons {
+    max-width: 90vw;
+    justify-content: center;
+    gap: 0.2rem; 
+  }
+  .home-container-buttons-button {
+    width: 6rem;
+    padding: 0.3rem 0.1rem;
+    justify-content: center;
+  }
+  .home-container-buttons-button .MuiTypography-root {
+    font-size: 0.8rem;
+  }
+  .home-container-text > h2 {
+    font-size: 2rem;
+  }
+  .home-container-text > h5 {
+    font-size: 1rem;
+  }
 }

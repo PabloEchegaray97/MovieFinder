@@ -113,7 +113,7 @@ const PopularSagas: React.FC = () => {
     }
 
     return (
-        <Box >
+        <Box className="popular-sagas-container section-container">
             <Typography 
                 variant="h5" 
                 sx={{ 
@@ -139,9 +139,9 @@ const PopularSagas: React.FC = () => {
                     </Typography>
                     
                     <Box
+                        className="popular-sagas-container-scroll"
                         sx={{
                             width: '100%',
-                            maxWidth: '50vw',
                             margin: '0 auto',
                             overflow: 'auto',
                             px: 2,
@@ -161,6 +161,7 @@ const PopularSagas: React.FC = () => {
                         <Grid 
                             container 
                             spacing={2} 
+                            className="popular-sagas-container-grid"
                             sx={{ 
                                 flexWrap: 'nowrap', 
                                 pb: 2,

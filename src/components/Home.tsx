@@ -46,17 +46,12 @@ const Home: React.FC<HomeProps> = ({
         >
             {!hasSearched ? (
                 <>
-                    <Box sx={{
+                    <Box className="home-container" sx={{
                         display: 'flex',
-                        flexDirection: { xs: 'column', md: 'row' },
                         alignItems: 'center',
-                        padding: '0 2rem',
                         gap: '2rem'
                     }}>
-                        <Box sx={{
-                            flex: 1,
-                            textAlign: { xs: 'center', md: 'left' }
-                        }}>
+                        <Box className="home-container-text">
                             <Typography
                                 variant="h2"
                                 sx={{
@@ -79,12 +74,10 @@ const Home: React.FC<HomeProps> = ({
                             <Stack 
                                 direction="row" 
                                 spacing={3} 
-                                sx={{ 
-                                    justifyContent: { xs: 'center', md: 'flex-start' },
-                                    mb: 3
-                                }}
+                                className="home-container-buttons"
                             >
                                 <Box
+                                    className="home-container-buttons-button"
                                     onClick={() => navigate('/movies')}
                                     sx={{
                                         display: 'flex',
@@ -102,12 +95,13 @@ const Home: React.FC<HomeProps> = ({
                                     }}
                                 >
                                     <MovieIcon sx={{ color: 'black', fontSize: 20 }} />
-                                    <Typography sx={{ color: 'black', fontWeight: 500 }}>
+                                    <Typography sx={{ color: 'black', fontWeight: 500 }} className="home-container-buttons-text">
                                         Películas
                                     </Typography>
                                 </Box>
 
                                 <Box
+                                    className="home-container-buttons-button"
                                     onClick={() => navigate('/artists')}
                                     sx={{
                                         display: 'flex',
@@ -125,12 +119,13 @@ const Home: React.FC<HomeProps> = ({
                                     }}
                                 >
                                     <PersonIcon sx={{ color: 'black', fontSize: 20 }} />
-                                    <Typography sx={{ color: 'black', fontWeight: 500 }}>
+                                    <Typography sx={{ color: 'black', fontWeight: 500 }} className="home-container-buttons-text">
                                         Personas
                                     </Typography>
                                 </Box>
 
                                 <Box
+                                    className="home-container-buttons-button"
                                     onClick={() => navigate('/genres')}
                                     sx={{
                                         display: 'flex',
@@ -148,7 +143,7 @@ const Home: React.FC<HomeProps> = ({
                                     }}
                                 >
                                     <CategoryIcon sx={{ color: 'black', fontSize: 20 }} />
-                                    <Typography sx={{ color: 'black', fontWeight: 500 }}>
+                                    <Typography sx={{ color: 'black', fontWeight: 500 }} className="home-container-buttons-text">
                                         Géneros
                                     </Typography>
                                 </Box>
@@ -159,14 +154,14 @@ const Home: React.FC<HomeProps> = ({
                         </Box>
                     </Box>
 
-                    <Box className="d-center d-center-c m2 mtop2">
+                    <Box className="d-center d-center-c m2 section-container">
                         <Typography variant="h4" sx={{ color: 'text.primary' }} className='sec-font jcenter mbottom'>
                             Descubre lo último en:
                         </Typography>
                         <GenreSelector />
                     </Box>
 
-                    <Box className="d-center d-center-c mtop-3 mbottom-3">
+                    <Box className="d-center d-center-c section-container mbottom-3">
                         <Box className="w50">
                             <Typography variant="h4" sx={{ color: 'text.primary' }} className='sec-font jcenter'>
                                 Tus artistas favoritos

@@ -110,7 +110,7 @@ const Banner: React.FC = () => {
   };
 
   return (
-    <section className="banner-container">
+    <section className="banner-container section-container">
       <Box className="fade-in">
         <Carousel
           showThumbs={false}

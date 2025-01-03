@@ -47,7 +47,7 @@ const PersonGallerySelector: React.FC = () => {
     }
 
     return (
-        <Box className="person-gallery-container">
+        <Box className="person-gallery-container section-container">
             {people.map(person => (
                 <Link to={`/actor/${person.id}`} key={person.id} className="person-item">
                     <img
