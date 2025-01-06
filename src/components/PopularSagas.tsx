@@ -144,9 +144,10 @@ const PopularSagas: React.FC = () => {
                             width: '100%',
                             margin: '0 auto',
                             overflow: 'auto',
-                            px: 2,
+                            px: 1,
                             '&::-webkit-scrollbar': {
                                 height: 8,
+                                marginTop: '10px'
                             },
                             '&::-webkit-scrollbar-track': {
                                 backgroundColor: 'rgba(0,0,0,0.1)',
@@ -164,10 +165,13 @@ const PopularSagas: React.FC = () => {
                             className="popular-sagas-container-grid"
                             sx={{ 
                                 flexWrap: 'nowrap', 
-                                pb: 2,
+                                pb: 1,
                                 justifyContent: collection.parts.length <= 4 ? 'center' : 'flex-start',
                                 width: collection.parts.length <= 4 ? '100%' : 'fit-content',
-                                mx: 0
+                                mx: 0,
+                                '& .MuiGrid-item': {
+                                    paddingBottom: '8px'
+                                }
                             }}
                         >
                             {collection.parts.map((movie: Movie) => (

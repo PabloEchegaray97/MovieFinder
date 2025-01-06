@@ -822,6 +822,7 @@
 }
 .popular-sagas-container-scroll {
   max-width: 50vw;
+
 }
 /*Movie details mobile*/
 @media (max-width: 1024px) {
@@ -976,4 +977,38 @@
   .genre-movies-grid .movie-grid-container .genre-movie-title {
     height: 10rem;
   }
+}
+
+.person-gallery-mobile-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    width: 90vw;
+}
+
+.person-mobile-item {
+    text-decoration: none;
+    text-align: center;
+    position: relative;
+}
+
+.person-mobile-item img {
+    width: 100%;
+    border-radius: 0.5rem;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.person-mobile-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: white;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 80%, transparent 100%);
+    padding: 1rem 0.5rem 0.5rem;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 0 0 0.5rem 0.5rem;
 }

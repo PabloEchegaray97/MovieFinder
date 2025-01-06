@@ -12,6 +12,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import CategoryIcon from '@mui/icons-material/Category';
 import PopularSagas from './PopularSagas';
 import AwardedMovies from './AwardedMovies';
+import PersonGallerySelectorMobile from './PersonGallerySelectorMobile';
 
 const Home: React.FC<HomeProps> = ({
     searchResults,
@@ -24,6 +25,7 @@ const Home: React.FC<HomeProps> = ({
     const [hasSearched, setHasSearched] = useState<boolean>(false);
     const location = useLocation();
     const navigate = useNavigate();
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 1000);
 
     useEffect(() => {
         setHasSearched(searchResults.length > 0);
@@ -34,6 +36,19 @@ const Home: React.FC<HomeProps> = ({
             setHasSearched(false);
         }
     }, [location]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 1000);
+        };
+
+        window.addEventListener('resize', handleResize);
+        
+        // Cleanup
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
         <Box 
@@ -170,7 +185,7 @@ const Home: React.FC<HomeProps> = ({
                                 En un solo lugar
                             </Typography>
                         </Box>
-                        <PersonGallerySelector />
+                        {isMobile ? <PersonGallerySelectorMobile /> : <PersonGallerySelector />}
                         <AwardedMovies/>
                         <PopularSagas/>
                     </Box>
