@@ -14,6 +14,7 @@ import PopularSagas from './PopularSagas';
 import AwardedMovies from './AwardedMovies';
 import PersonGallerySelectorMobile from './PersonGallerySelectorMobile';
 import { useTheme } from '@mui/material/styles';
+import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
 
 const Home: React.FC<HomeProps> = ({
     searchResults,
@@ -75,10 +76,34 @@ const Home: React.FC<HomeProps> = ({
                                 sx={{
                                     color: 'text.primary',
                                     fontWeight: 'bold',
-                                    marginBottom: '1rem'
+                                    marginBottom: '1rem',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    '& .movie-icon': {
+                                        color: theme.palette.text.primary
+                                    },
                                 }}
                             >
-                                Bienvenido a MovieFinder
+                                <LocalMoviesIcon 
+                                    className="movie-icon" 
+                                    sx={{ 
+                                        fontSize: '2.5rem',
+                                        filter: 'drop-shadow(0 0 4px rgba(0,0,0,0.3))',
+                                        color: theme.palette.text.primary
+                                        }} 
+                                />
+                                Movie
+                                <span 
+                                    style={{ 
+                                        background: 'linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)',
+                                        WebkitBackgroundClip: 'text',
+                                        WebkitTextFillColor: 'transparent',
+                                        textShadow: '2px 2px 4px rgba(0,0,0,0.2)'
+                                    }}
+                                >
+                                    Finder
+                                </span>
                             </Typography>
                             <Typography
                                 variant="h5"
