@@ -13,6 +13,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import PopularSagas from './PopularSagas';
 import AwardedMovies from './AwardedMovies';
 import PersonGallerySelectorMobile from './PersonGallerySelectorMobile';
+import { useTheme } from '@mui/material/styles';
 
 const Home: React.FC<HomeProps> = ({
     searchResults,
@@ -26,6 +27,7 @@ const Home: React.FC<HomeProps> = ({
     const location = useLocation();
     const navigate = useNavigate();
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1000);
+    const theme = useTheme();
 
     useEffect(() => {
         setHasSearched(searchResults.length > 0);
@@ -69,6 +71,7 @@ const Home: React.FC<HomeProps> = ({
                         <Box className="home-container-text">
                             <Typography
                                 variant="h2"
+                                className='title'
                                 sx={{
                                     color: 'text.primary',
                                     fontWeight: 'bold',
@@ -170,20 +173,20 @@ const Home: React.FC<HomeProps> = ({
                     </Box>
 
                     <Box className="d-center d-center-c m2 section-container">
-                        <Typography variant="h4" sx={{ color: 'text.primary' }} className='sec-font jcenter mbottom'>
+                        <div style={{ color: theme.palette.text.primary }} className='sec-font jcenter mbottom title'>
                             Descubre lo último en:
-                        </Typography>
+                        </div>
                         <GenreSelector />
                     </Box>
 
                     <Box className="d-center d-center-c section-container mbottom-3">
-                        <Box className="w50">
-                            <Typography variant="h4" sx={{ color: 'text.primary' }} className='sec-font jcenter'>
+                        <Box className="box-container">
+                            <div style={{ color: theme.palette.text.primary }} className='sec-font title'>
                                 Tus artistas favoritos
-                            </Typography>
-                            <Typography variant="body1" sx={{ color: 'text.primary' }} className='sec-font jcenter mbottom'>
+                            </div>
+                            <div style={{ color: theme.palette.text.secondary }} className='sec-font jcenter mbottom title2'>
                                 En un solo lugar
-                            </Typography>
+                            </div>
                         </Box>
                         {isMobile ? <PersonGallerySelectorMobile /> : <PersonGallerySelector />}
                         <AwardedMovies/>

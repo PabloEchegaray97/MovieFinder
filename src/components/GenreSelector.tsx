@@ -31,6 +31,7 @@ const GenreSelector: React.FC = () => {
   const [imagesLoaded, setImagesLoaded] = useState<{ [key: number]: boolean }>({});
   const theme = useTheme();
   const swiperRef = useRef<SwiperRef>(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
 
   const handleImageLoad = (movieId: number) => {
     setImagesLoaded(prev => ({
@@ -81,7 +82,6 @@ const GenreSelector: React.FC = () => {
             language: 'es-ES',
           },
         });
-        const isMobile = window.innerWidth < 800;
         setMovies(response.data.results.slice(0, isMobile ? 4 : 6)); // Obtener 4 o 6 películas
       } catch (error) {
         console.error('Error fetching movies:', error);
@@ -91,7 +91,7 @@ const GenreSelector: React.FC = () => {
     };
 
     fetchMovies();
-  }, [selectedGenre]);
+  }, [selectedGenre, isMobile]);
 
   useEffect(() => {
     const genreIndex = genres.findIndex(genre => genre.id === selectedGenre);
@@ -101,12 +101,27 @@ const GenreSelector: React.FC = () => {
   }, [selectedGenre, genres]);
 
   const handleSlideChange = (swiper: SwiperType) => {
-    const activeSlide = swiper.slides[swiper.activeIndex];
-    const genreId = genres.find(genre => genre.name === activeSlide.innerText)?.id;
-    if (genreId) {
-      setSelectedGenre(genreId);
+    const activeIndex = swiper.realIndex;
+    const genre = genres[activeIndex];
+    if (genre?.id) {
+      setSelectedGenre(genre.id);
     }
   };
+
+  useEffect(() => {
+    if (selectedGenre !== null) {
+      console.log('Género seleccionado:', selectedGenre);
+    }
+  }, [selectedGenre]);
+
+  useEffect(() => {
+    const handleResize = () => {
+        setIsMobile(window.innerWidth < 800);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <Box className="genre-container fade-in">
@@ -115,12 +130,40 @@ const GenreSelector: React.FC = () => {
           '& .swiper-button-next, & .swiper-button-prev': {
             color: theme.palette.text.primary,
             fontSize: '1.5rem',
-            width: '30px',
-            height: '30px',
+            width: '35px',
+            height: '35px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            '&::after': {
+              fontSize: '1.5rem',
+              fontWeight: 'bold'
+            },
+            '@media (min-width: 800px)': {
+              fontSize: '2rem',
+              width: '50px',
+              height: '50px',
+              '&::after': {
+                fontSize: '2.5rem',
+                fontWeight: 'bold'
+              }
+            }
           },
-          '& .swiper-button-next::after, & .swiper-button-prev::after': {
-            fontSize: 'inherit',
+          '& .swiper-button-prev': {
+            left: '10px',
+            '@media (min-width: 800px)': {
+              left: '20px'
+            }
           },
+          '& .swiper-button-next': {
+            right: '10px',
+            '@media (min-width: 800px)': {
+              right: '20px'
+            }
+          },
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative'
         }}
       >
         {loadingGenres ? (
@@ -134,12 +177,15 @@ const GenreSelector: React.FC = () => {
             loop={true}
             onSlideChange={handleSlideChange}
             ref={swiperRef}
+            observer={true}
+            observeParents={true}
+            watchSlidesProgress={true}
           >
             {genres.map((genre) => (
               <SwiperSlide key={genre.id} style={{ display: 'flex', justifyContent: 'center' }}>
-                <Typography variant='h4' sx={{ color: theme.palette.text.primary }} className='mbottom-3 jcenter title'>
+                <span style={{ color: theme.palette.text.primary }} className='mbottom-3 jcenter title'>
                   {genre.name}
-                </Typography>
+                </span>
               </SwiperSlide>
             ))}
           </SwiperComponent>
@@ -148,13 +194,13 @@ const GenreSelector: React.FC = () => {
 
       {loadingMovies ? (
         <Box className="genre-movies-grid">
-          {Array.from({ length: 6 }).map((_, index) => (
+          {Array.from({ length: isMobile ? 4 : 6 }).map((_, index) => (
             <Box key={index} className="movie-grid-container">
               <Skeleton 
                 variant="rectangular" 
                 className='genre-img-grid' 
                 sx={{
-                  height: '14rem',
+                  height: isMobile ? '10rem' : '14rem',
                   width: '100%'
                 }}
               />
@@ -174,7 +220,7 @@ const GenreSelector: React.FC = () => {
                       animation="wave"
                       sx={{
                         backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                        height: '14rem',
+                        height: isMobile ? '10rem' : '14rem',
                         width: '100%',
                         transform: 'none'
                       }}
@@ -186,7 +232,7 @@ const GenreSelector: React.FC = () => {
                     className='genre-img-grid'
                     style={{ 
                       display: imagesLoaded[movie.id] ? 'block' : 'none',
-                      height: '14rem',
+                      height: isMobile ? '10rem' : '14rem',
                       width: '100%',
                       objectFit: 'cover'
                     }}
@@ -200,21 +246,24 @@ const GenreSelector: React.FC = () => {
                       bottom: 0,
                       left: 0,
                       width: '100%',
-                      height: '14rem',
                       color: 'white',
-                      backgroundColor: 'rgba(0, 0, 0, 0)',
-                      padding: '10px 0',
-                      zIndex: 1,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)',
+                      padding: '0.5rem',
                       textAlign: 'center',
-                      opacity: 0,
-                      transition: 'all 0.3s ease-in-out',
-                      '.movie-grid-container:hover &': {
+                      fontSize: '0.9rem',
+                      ...(isMobile ? {
                         opacity: 1,
-                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                      }
+                        maxHeight: '3rem',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap'
+                      } : {
+                        opacity: 0,
+                        transition: 'all 0.3s ease-in-out',
+                        '.movie-grid-container:hover &': {
+                          opacity: 1
+                        }
+                      })
                     }}
                   >
                     {movie.title}

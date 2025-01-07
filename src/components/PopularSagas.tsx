@@ -204,8 +204,8 @@ const PopularSagas: React.FC = () => {
                                                         bottom: 0,
                                                         left: 0,
                                                         right: 0,
-                                                        p: 1,
-                                                        background: 'rgba(0, 0, 0, 0.7)',
+                                                        background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)',
+                                                        padding: '1rem 0.5rem 0.5rem',
                                                     }}>
                                                         <Typography 
                                                             variant="subtitle1" 

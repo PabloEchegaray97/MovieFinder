@@ -92,16 +92,14 @@ const AwardedMovies: React.FC = () => {
 
     return (
         <Box className="awarded-movies-container section-container">
-            <Typography 
-                variant="h5" 
-                sx={{ 
-                    mb: 3, 
-                    textAlign: 'center',
-                    color: theme.palette.text.secondary
+            <div 
+                style={{ 
+                    color: theme.palette.text.primary,
                 }}
+                className='title'
             >
-                Películas que han hecho historia en los premios
-            </Typography>
+                Películas nominadas a premios
+            </div>
 
             <Box
                 className="awarded-movies-container-scroll"

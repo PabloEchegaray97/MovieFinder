@@ -130,7 +130,12 @@
 }
 .title {
   font-size: 2rem ;
+  text-align: center;
 }
+.title2 {
+  font-size: 1.5rem;
+}
+
 
 .navbar {
   width: 100%;
@@ -472,7 +477,7 @@
 .banner-img-container {
   position: relative;
   width: 100%;
-  height: 80vh;
+  height: 100%;
 }
 
 .movie-info {
@@ -489,8 +494,36 @@
   );
   color: white;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  visibility: hidden;
+  transition: all 0.3s ease;
   z-index: 2;
+}
+
+/* Desktop: mostrar en hover */
+@media (min-width: 1001px) {
+  .banner-img-container:hover .movie-info {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Móvil: siempre mostrar */
+@media (max-width: 1000px) {
+  .movie-info {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .banner-title {
+    font-size: 1.3rem !important;
+  }
+  
+  .movie-info p {
+    font-size: 0.9rem !important;
+  }
+  .movie-info .runtime {
+    margin-bottom: 1rem ;
+  }
 }
 
 .banner-title {
@@ -602,13 +635,14 @@
   grid-template-columns: repeat(3,1fr);
   gap: 1rem;
   justify-content: center;
+  margin-top: -1.5rem;
 }
 .genre-container {
   width: 50vw;
 }
 .genre-img-grid {
   width: 100%;
-  height: 10rem;
+  height: 14rem;
   object-fit:cover;
   border-radius: 1rem;
 
@@ -729,7 +763,9 @@
 .loader-container {
   height: calc(100vh - var(--navbar-height));
 }
-
+.title {
+  font-size: 2.5rem;
+}
 .home {
     position: relative;
     min-height: calc(100vh - var(--navbar-height)) !important;
@@ -872,6 +908,18 @@
   }
 }
 @media (max-width: 1024px) {
+
+  .title {
+    font-size: 1.5rem;
+    width: 90vw;
+    text-align: center;
+  }
+  .box-container {
+    width: 90vw;
+  }
+  .title2 {
+    font-size: 1rem;
+  }
   .home-container {
     flex-direction: column;
     align-items: center;
@@ -982,8 +1030,7 @@
 .person-gallery-mobile-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    padding: 1rem;
+    gap: .5rem;
     width: 90vw;
 }
 
@@ -995,7 +1042,7 @@
 
 .person-mobile-item img {
     width: 100%;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     aspect-ratio: 1;
     object-fit: cover;
 }
@@ -1012,3 +1059,23 @@
     text-align: center;
     border-radius: 0 0 0.5rem 0.5rem;
 }
+
+@media (max-width: 1000px) {
+    .banner-img-container {
+        position: relative;
+    }
+    
+    .movie-info {
+        padding: 1rem;
+        z-index: 10;
+    }
+    
+    .banner-title {
+        font-size: 1.2rem;
+    }
+    
+    .movie-info p {
+        font-size: 0.9rem;
+    }
+}
+

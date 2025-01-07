@@ -192,7 +192,7 @@ const Banner: React.FC = () => {
                 <div className="movie-info">
                   <Typography variant="h4" className='banner-title'>{movie.title}</Typography>
                   <p>Género: {getGenreNames(movie.genre_ids)}</p>
-                  {movie.runtime && <p>Duración: {movie.runtime} minutos</p>}
+                  {movie.runtime && <p className='runtime'>Duración: {movie.runtime} minutos</p>}
                 </div>
               </div>
             </Link>
