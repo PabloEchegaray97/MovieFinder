@@ -113,7 +113,7 @@ const PopularSagas: React.FC = () => {
     }
 
     return (
-        <Box className="popular-sagas-container section-container">
+        <Box className="popular-sagas-container section-container mbottom1">
             <Typography 
                 variant="h5" 
                 sx={{ 
@@ -130,7 +130,7 @@ const PopularSagas: React.FC = () => {
                     <Typography 
                         variant="h4" 
                         sx={{ 
-                            mb: 4, 
+                            mb: 2, 
                             textAlign: 'center',
                             color: theme.palette.text.primary 
                         }}

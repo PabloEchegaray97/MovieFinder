@@ -96,7 +96,7 @@ const AwardedMovies: React.FC = () => {
                 style={{ 
                     color: theme.palette.text.primary,
                 }}
-                className='title'
+                className='title mbottom1'
             >
                 Películas nominadas a premios
             </div>

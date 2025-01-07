@@ -794,6 +794,12 @@
     position: relative;
     z-index: 2;
 }
+.home-container {
+  padding-left: 2rem;
+  padding-right: 1rem;
+}
+
+
 .movie-details-container {
   display: flex;
   align-items: center;
@@ -1079,3 +1085,10 @@
     }
 }
 
+
+.section-home {
+  margin-top: 2rem;
+}
+.mbottom1 {
+  margin-bottom: 1rem;
+}

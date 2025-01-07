@@ -70,8 +70,8 @@ const Home: React.FC<HomeProps> = ({
                     }}>
                         <Box className="home-container-text">
                             <Typography
-                                variant="h2"
-                                className='title'
+                                variant="h3"
+                                className='title-home'
                                 sx={{
                                     color: 'text.primary',
                                     fontWeight: 'bold',
@@ -179,18 +179,22 @@ const Home: React.FC<HomeProps> = ({
                         <GenreSelector />
                     </Box>
 
-                    <Box className="d-center d-center-c section-container mbottom-3">
-                        <Box className="box-container">
+                    <Box className="d-center d-center-c section-container">
+                        <div className="box-container section-home">
                             <div style={{ color: theme.palette.text.primary }} className='sec-font title'>
                                 Tus artistas favoritos
                             </div>
                             <div style={{ color: theme.palette.text.secondary }} className='sec-font jcenter mbottom title2'>
                                 En un solo lugar
                             </div>
-                        </Box>
+                        </div>
                         {isMobile ? <PersonGallerySelectorMobile /> : <PersonGallerySelector />}
-                        <AwardedMovies/>
-                        <PopularSagas/>
+                        <div className='section-home'>
+                            <AwardedMovies/>
+                        </div>
+                        <div className='section-home'>
+                            <PopularSagas/>
+                        </div>
                     </Box>
                 </>
             ) : (
