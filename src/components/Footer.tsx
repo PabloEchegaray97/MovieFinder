@@ -44,7 +44,7 @@ const Footer: React.FC<FooterProps> = ({darkMode}) => {
                         }} 
                         className='footer-logo-container'
                     >
-                        <LocalMoviesIcon sx={{ color: theme.palette.text.primary }} />
+                        <LocalMoviesIcon sx={{ color: theme.palette.text.primary, fontSize: '2rem' }} />
                         <span className='text-thin text-size-1'>MovieFinder</span>
                     </Typography>
                 </Link>

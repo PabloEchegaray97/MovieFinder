@@ -88,10 +88,9 @@ const Home: React.FC<HomeProps> = ({
                                     <LocalMoviesIcon 
                                     className="movie-icon" 
                                     sx={{ 
-                                        fontSize: '2rem',
+                                        fontSize: '2.3rem',
                                         filter: 'drop-shadow(0 0 4px rgba(0,0,0,0.3))',
                                         color: theme.palette.text.primary,
-                                        marginRight: '-.3rem',
                                         marginLeft:'.3rem'
                                         }} 
                                 />
@@ -209,7 +208,7 @@ const Home: React.FC<HomeProps> = ({
                         <div className='section-home'>
                             <AwardedMovies/>
                         </div>
-                        <div className='section-home'>
+                        <div className='popular-sagas-container-home'>
                             <PopularSagas/>
                         </div>
                     </Box>

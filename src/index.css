@@ -1031,6 +1031,7 @@
     justify-content: center;
     align-items: center;
   } 
+
 }
 
 @media (max-width: 800px) {
@@ -1098,6 +1099,10 @@
     .movie-info p {
         font-size: 0.9rem;
     }
+    .MuiBox-root .popular-sagas-container-home {
+      margin-top: 0;
+
+    }
 }
 
 
@@ -1112,14 +1117,11 @@
   font-size: 2rem;
 }
 
-.home-container-text h3 {
+.title-home {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
-
-/* Si el ícono está dentro de un span o div, asegúrate que también esté alineado */
-.home-container-text h3 img,
-.home-container-text h3 svg {
-  display: inline-flex;
-  vertical-align: middle;
+.popular-sagas-container-home {
+  margin-top: 1rem;
 }
