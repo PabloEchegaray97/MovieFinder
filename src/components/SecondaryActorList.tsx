@@ -11,60 +11,93 @@ interface SecondaryActorListProps {
 
 const SecondaryActorList: React.FC<SecondaryActorListProps> = ({ actors }) => {
     const [showAll, setShowAll] = useState(false);
-
-    const handleToggleShowAll = () => {
-        setShowAll(!showAll);
-    };
-
+    const previewCount = 8;
+    
     return (
-        <Box>
-            <Box display="flex" flexWrap="wrap" gap={1} justifyContent="center">
-                {actors.slice(0, 6).map((actor) => (
-                    <Chip
-                        key={actor.id}
-                        component={Link}
-                        to={`/actor/${actor.id}`}
-                        label={actor.name}
-                        avatar={
-                            actor.profile_path ? (
-                                <Avatar src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`} alt={actor.name} />
-                            ) : (
-                                <Avatar>{actor.name.charAt(0)}</Avatar>
-                            )
-                        }
-                        clickable
-                    />
-                ))}
-            </Box>
-            {actors.length > 6 && (
-                <>
-                    <Collapse in={showAll}>
-                        <Box display="flex" flexWrap="wrap" gap={1} mt={1}>
-                            {actors.slice(6).map((actor) => (
-                                <Chip
-                                    key={actor.id}
-                                    component={Link}
-                                    to={`/actor/${actor.id}`}
-                                    label={actor.name}
-                                    avatar={
-                                        actor.profile_path ? (
-                                            <Avatar src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`} alt={actor.name} />
-                                        ) : (
-                                            <Avatar>{actor.name.charAt(0)}</Avatar>
-                                        )
-                                    }
-                                    clickable
-                                />
-                            ))}
-                        </Box>
-                    </Collapse>
-                    <Box mt={1} display="flex" justifyContent="center">
-                        <IconButton onClick={handleToggleShowAll}>
-                            {showAll ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                        </IconButton>
+        <Box 
+            sx={{ 
+                width: '100%', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center',
+                position: 'relative'
+            }}
+        >
+            <Box 
+                sx={{ 
+                    width: '100%',
+                    maxWidth: '1200px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center'
+                }}
+            >
+                {/* Primera fila siempre visible */}
+                <Box 
+                    display="flex" 
+                    flexWrap="wrap" 
+                    gap={1} 
+                    justifyContent="center" 
+                    sx={{ width: '100%' }}
+                >
+                    {actors.slice(0, previewCount).map((actor) => (
+                        <Chip
+                            key={actor.id}
+                            component={Link}
+                            to={`/actor/${actor.id}`}
+                            label={actor.name}
+                            avatar={
+                                actor.profile_path ? (
+                                    <Avatar src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`} alt={actor.name} />
+                                ) : (
+                                    <Avatar>{actor.name.charAt(0)}</Avatar>
+                                )
+                            }
+                            clickable
+                        />
+                    ))}
+                </Box>
+
+                {/* Contenido expandible con animación */}
+                <Collapse in={showAll} sx={{ width: '100%' }}>
+                    <Box 
+                        display="flex" 
+                        flexWrap="wrap" 
+                        gap={1} 
+                        justifyContent="center" 
+                        sx={{ 
+                            width: '100%',
+                            mt: 1 
+                        }}
+                    >
+                        {actors.slice(previewCount).map((actor) => (
+                            <Chip
+                                key={actor.id}
+                                component={Link}
+                                to={`/actor/${actor.id}`}
+                                label={actor.name}
+                                avatar={
+                                    actor.profile_path ? (
+                                        <Avatar src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`} alt={actor.name} />
+                                    ) : (
+                                        <Avatar>{actor.name.charAt(0)}</Avatar>
+                                    )
+                                }
+                                clickable
+                            />
+                        ))}
                     </Box>
-                </>
-            )}
+                </Collapse>
+
+                {actors.length > previewCount && (
+                    <IconButton 
+                        onClick={() => setShowAll(!showAll)}
+                        sx={{ mt: 2 }}
+                    >
+                        {showAll ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                    </IconButton>
+                )}
+            </Box>
         </Box>
     );
 };
