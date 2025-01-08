@@ -274,6 +274,8 @@
   position: relative;
   overflow: hidden;
   padding-top: 1rem;
+  width: 90vw;
+  margin: 0 auto;
 }
 
 .actor-details {
@@ -311,11 +313,8 @@
 }
 
 .actor-details-poster {
-  padding-top: 1rem;
   width: 35vw;
-  height: 100%;
-  padding-left: 1rem;
-  padding-bottom: 1rem;
+  margin-right: 1rem;
 }
 
 .actor-poster {
@@ -905,7 +904,9 @@
     flex-direction: column-reverse;
   }
   .actor-details-poster {
-    width: 90vw !important;
+    width: 90vw;
+    margin-bottom: 1rem;
+    align-self: flex-start;
   }
   .actor-data-text {
     width: 90vw;

@@ -127,7 +127,6 @@ const ActorDetails: React.FC = () => {
                 </Box>
                 <Box className="actor-details-poster" textAlign="center">
                     <Card sx={{ 
-                        width: '95%',
                         backgroundColor: 'background.paper',
                         transition: 'all 0.3s ease',
                         display: 'flex',
@@ -274,8 +273,8 @@ const ActorDetails: React.FC = () => {
                 backgroundColor: 'background.paper',
                 padding: '2rem',
                 borderRadius: '.3rem',
-                mt: 3,
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                marginTop:'1rem'
             }}>
                 <Typography 
                     variant="h6" 
@@ -313,6 +312,7 @@ const ActorDetails: React.FC = () => {
                 handleClose={handleCloseModal}
                 movie={selectedMovie}
                 actorBirthday={actorDetails.birthday}
+                actorName={actorDetails.name}
             />
         </Box>
     );

@@ -11,9 +11,10 @@ interface MovieModalProps {
     handleClose: () => void;
     movie: MovieItem | null;
     actorBirthday: string | null;
+    actorName: string;
 }
 
-const MovieModal: React.FC<MovieModalProps> = ({ open, handleClose, movie, actorBirthday }) => {
+const MovieModal: React.FC<MovieModalProps> = ({ open, handleClose, movie, actorBirthday, actorName }) => {
     const theme = useTheme();
 
     if (!movie) return null;
@@ -34,20 +35,32 @@ const MovieModal: React.FC<MovieModalProps> = ({ open, handleClose, movie, actor
             aria-labelledby="movie-modal-title"
             aria-describedby="movie-modal-description"
             className='modal'
-            
         >
             <Box className="modal-content" sx={{ 
                 backgroundColor: alpha(theme.palette.background.paper, 0.8),
                 overflow: 'hidden',
-                width: '30rem',
-                maxHeight: '90vh',
+                width: {
+                    xs: '90%',
+                    sm: '80%',
+                    md: '30rem'
+                },
+                maxWidth: '30rem',
+                maxHeight: {
+                    xs: '80vh',
+                    sm: '90vh'
+                },
                 display: 'flex',
                 flexDirection: 'column',
                 borderRadius: '.3rem',
+                margin: '20px auto'
             }}>
                 <Box sx={{ 
                     flex: '1 1 auto',
-                    minHeight: '35rem',
+                    minHeight: {
+                        xs: '20rem',
+                        sm: '25rem',
+                        md: '35rem'
+                    },
                     position: 'relative'
                 }}>
                     <img
@@ -67,20 +80,42 @@ const MovieModal: React.FC<MovieModalProps> = ({ open, handleClose, movie, actor
                     />
                 </Box>
                 <Box sx={{ 
-                    padding: '1rem',
+                    padding: {
+                        xs: '0.5rem',
+                        sm: '1rem'
+                    },
                     flex: '0 0 auto'
                 }}>
                     <Typography variant="h6" component="h2" noWrap>
                         {movie.title}
                     </Typography>
-                    <Box sx={{ mt: 2 }}>
+                    <Typography 
+                        variant="subtitle1" 
+                        sx={{ 
+                            mt: 0.5,
+                            color: 'text.secondary',
+                            fontSize: {
+                                xs: '0.875rem',
+                                sm: '1rem'
+                            },
+                            fontStyle: 'italic'
+                        }}
+                        noWrap
+                    >
+                        Con la actuación de {actorName}
+                    </Typography>
+                    <Box sx={{ mt: { xs: 1, sm: 2 } }}>
                         <Typography 
                             variant="body2" 
                             sx={{ 
                                 display: 'flex', 
                                 alignItems: 'center', 
                                 gap: 1,
-                                mb: 1
+                                mb: 1,
+                                fontSize: {
+                                    xs: '0.75rem',
+                                    sm: '0.875rem'
+                                }
                             }}
                         >
                             <CalendarMonthIcon fontSize="small" />
@@ -91,20 +126,28 @@ const MovieModal: React.FC<MovieModalProps> = ({ open, handleClose, movie, actor
                             sx={{ 
                                 display: 'flex', 
                                 alignItems: 'center', 
-                                gap: 1
+                                gap: 1,
+                                fontSize: {
+                                    xs: '0.75rem',
+                                    sm: '0.875rem'
+                                }
                             }}
                         >
                             <CakeIcon fontSize="small" />
-                            <strong>Edad del actor al momento del estreno:</strong> {actorBirthday ? `${ageAtRelease} años` : 'Desconocida'}
+                            <strong>Edad al momento del estreno:</strong> {actorBirthday ? `${ageAtRelease} años` : 'Desconocida'}
                         </Typography>
                     </Box>
                     <Button
                         variant="contained"
                         fullWidth
                         sx={{ 
-                            mt: 2, 
+                            mt: { xs: 1, sm: 2 }, 
                             backgroundColor: 'white', 
-                            color: 'black', 
+                            color: 'black',
+                            fontSize: {
+                                xs: '0.875rem',
+                                sm: '1rem'
+                            },
                             '&:hover': { 
                                 backgroundColor: 'rgba(255,255,255,0.8)' 
                             } 
