@@ -132,7 +132,6 @@ const ActorDetails: React.FC = () => {
                         transition: 'all 0.3s ease',
                         display: 'flex',
                         flexDirection: 'column',
-                        padding: '2rem'
 
                     }}>
                         <Box sx={{ display: 'flex' }}>
