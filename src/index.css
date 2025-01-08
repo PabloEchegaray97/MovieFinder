@@ -1016,6 +1016,21 @@
   .home-container-text > h5 {
     font-size: 1rem;
   }
+  .home-container-text {
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .MuiBox-root .home-container-text .MuiTypography-h3.title-home {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } 
 }
 
 @media (max-width: 800px) {
@@ -1091,4 +1106,20 @@
 }
 .mbottom1 {
   margin-bottom: 1rem;
+}
+
+.titlehome {
+  font-size: 2rem;
+}
+
+.home-container-text h3 {
+  display: flex;
+  align-items: center;
+}
+
+/* Si el ícono está dentro de un span o div, asegúrate que también esté alineado */
+.home-container-text h3 img,
+.home-container-text h3 svg {
+  display: inline-flex;
+  vertical-align: middle;
 }

@@ -3,12 +3,12 @@ import { Box, Typography } from '@mui/material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { Link, useNavigate } from 'react-router-dom';
-import MovieFilterOutlinedIcon from '@mui/icons-material/MovieFilterOutlined';
 import { useTheme } from '@mui/material/styles';
 import Icon from '@mdi/react';
 import { mdiReact, mdiLanguageTypescript } from '@mdi/js';
 import { mdiMaterialUi } from '@mdi/js';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
 
 interface FooterProps {
     darkMode: boolean;
@@ -44,7 +44,7 @@ const Footer: React.FC<FooterProps> = ({darkMode}) => {
                         }} 
                         className='footer-logo-container'
                     >
-                        <MovieFilterOutlinedIcon sx={{ color: theme.palette.text.primary, marginRight: '.5rem' }} />
+                        <LocalMoviesIcon sx={{ color: theme.palette.text.primary }} />
                         <span className='text-thin text-size-1'>MovieFinder</span>
                     </Typography>
                 </Link>

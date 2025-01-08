@@ -11,11 +11,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Link } from 'react-router-dom';
-import MovieFilterOutlinedIcon from '@mui/icons-material/MovieFilterOutlined';
 import { Button, InputLabel, TextField, IconButton, Collapse } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { useTheme } from '@mui/material/styles';
+import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
 
 interface NavBarProps {
     darkMode: boolean;
@@ -91,7 +91,7 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
             <Toolbar className="navbar-content">
                 <Box className="navbar-logo-container" sx={{ color: darkMode ? 'white' : 'black' }}>
                     <Link to="/" className="navbar-title" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} style={{ display: 'flex', alignItems: 'center', color: darkMode ? 'white' : 'black' }}>
-                        <MovieFilterOutlinedIcon sx={{ mr: 1, color: darkMode ? 'white' : 'black' }} />
+                        <LocalMoviesIcon sx={{  color: darkMode ? 'white' : 'black' }} />
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: darkMode ? 'white' : 'black' }}>
                             <span className='text-thin'>MovieFinder</span>
                         </Typography>

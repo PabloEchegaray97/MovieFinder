@@ -70,41 +70,33 @@ const Home: React.FC<HomeProps> = ({
                         gap: '2rem'
                     }}>
                         <Box className="home-container-text">
-                            <Typography
-                                variant="h3"
-                                className='title-home'
-                                sx={{
+                            
+                            <div
+                                className='title-home title'
+                                style={{
                                     color: 'text.primary',
                                     fontWeight: 'bold',
                                     marginBottom: '1rem',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: '0.5rem',
-                                    '& .movie-icon': {
-                                        color: theme.palette.text.primary
-                                    },
                                 }}
                             >
-                                <LocalMoviesIcon 
+                                
+                                
+                                Bienvenido a 
+                                <span style={{display: 'flex', alignItems: 'center'}}>
+                                    <LocalMoviesIcon 
                                     className="movie-icon" 
                                     sx={{ 
-                                        fontSize: '2.5rem',
+                                        fontSize: '2rem',
                                         filter: 'drop-shadow(0 0 4px rgba(0,0,0,0.3))',
-                                        color: theme.palette.text.primary
+                                        color: theme.palette.text.primary,
+                                        marginRight: '-.3rem',
+                                        marginLeft:'.3rem'
                                         }} 
                                 />
-                                Movie
-                                <span 
-                                    style={{ 
-                                        background: 'linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)',
-                                        WebkitBackgroundClip: 'text',
-                                        WebkitTextFillColor: 'transparent',
-                                        textShadow: '2px 2px 4px rgba(0,0,0,0.2)'
-                                    }}
-                                >
-                                    Finder
                                 </span>
-                            </Typography>
+                                MovieFinder</div>
                             <Typography
                                 variant="h5"
                                 sx={{
