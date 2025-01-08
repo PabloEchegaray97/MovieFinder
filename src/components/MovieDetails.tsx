@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import MovieList from './MovieList';
 import SecondaryActorList from './SecondaryActorList';
-import { ToggleButton, ToggleButtonGroup, Box, Typography, Tooltip, CircularProgress, Grid, Chip, Stack } from '@mui/material';
+import { ToggleButton, ToggleButtonGroup, Box, Typography, Tooltip, CircularProgress, Grid, Chip, Stack, Button } from '@mui/material';
 import 'flag-icons/css/flag-icons.min.css';
 import { useTheme } from '@mui/material/styles';
 import {  Actor, MovieDetailsData, RelatedMovie, Video, ProvidersData} from '../types';
@@ -85,8 +85,13 @@ const MovieDetails: React.FC = () => {
         );
     }
 
-    const formattedRuntime = `${Math.floor(movieDetails.runtime / 60)} h ${movieDetails.runtime % 60} min`;
+    const formattedRuntime = movieDetails.runtime 
+        ? `${Math.floor(movieDetails.runtime / 60)} h ${movieDetails.runtime % 60} min`
+        : 'Sin datos';
     
+    const releaseYear = movieDetails.release_date 
+        ? new Date(movieDetails.release_date).getFullYear()
+        : 'Sin datos';
 
     return (
         <div className="movie-details-container">
@@ -114,7 +119,7 @@ const MovieDetails: React.FC = () => {
                         sx={{ color: theme.palette.text.secondary }}
                         className='mtop-m movie-subtitle'
                     >
-                        {`${new Date(movieDetails.release_date).getFullYear()} • ${formattedRuntime} • ${movieDetails.genres.map(genre => genre.name).join(', ')} • Clasificación: ${movieDetails.certification}`}
+                        {`${releaseYear} • ${formattedRuntime} • ${movieDetails.genres.map(genre => genre.name).join(', ')} • Clasificación: ${movieDetails.certification}`}
                     </Typography>
 
                     <Typography 
@@ -255,7 +260,47 @@ const MovieDetails: React.FC = () => {
                 </ToggleButtonGroup>
 
                 {showContent === 'suggestions' ? (
-                    <MovieList movies={relatedMovies} />
+                    relatedMovies.length > 0 ? (
+                        <MovieList movies={relatedMovies} />
+                    ) : (
+                        <Box 
+                            sx={{ 
+                                display: 'flex', 
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                minHeight: '200px',
+                                width: '100%',
+                                color: 'text.secondary',
+                                flexDirection: 'column',
+                                gap: 2,
+                                my: 4 // margin top y bottom
+                            }}
+                        >
+                            <Typography variant="h6" sx={{ color: 'text.secondary' }}>
+                                ¡Ups! No hay recomendaciones disponibles
+                            </Typography>
+                            <Typography variant="body1" sx={{ color: 'text.secondary', mb: 2 }}>
+                                No encontramos películas similares para mostrar
+                            </Typography>
+                            <Button
+                                variant="contained"
+                                component={Link}
+                                to="/movies"
+                                sx={{ 
+                                    backgroundColor: 'white',
+                                    color: 'black',
+                                    '&:hover': {
+                                        backgroundColor: 'rgba(255,255,255,0.8)'
+                                    }
+                                }}
+                                onClick={() => {
+                                    window.scrollTo(0, 0);
+                                }}
+                            >
+                                Buscar películas
+                            </Button>
+                        </Box>
+                    )
                 ) : (
                     <Box sx={{ 
                         display: 'flex',

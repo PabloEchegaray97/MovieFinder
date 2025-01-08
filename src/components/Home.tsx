@@ -72,7 +72,7 @@ const Home: React.FC<HomeProps> = ({
                         <Box className="home-container-text">
                             
                             <div
-                                className='title-home title'
+                                className='title-home title2'
                                 style={{
                                     color: 'text.primary',
                                     fontWeight: 'bold',
@@ -95,7 +95,10 @@ const Home: React.FC<HomeProps> = ({
                                         }} 
                                 />
                                 </span>
-                                MovieFinder</div>
+                                <span className='titlehome'>
+                                    MovieFinder
+                                </span>
+                            </div>
                             <Typography
                                 variant="h5"
                                 sx={{

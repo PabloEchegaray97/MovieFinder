@@ -180,7 +180,10 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
                     />)}
                     <Button
                         variant="contained"
-                        onClick={handleSearch}
+                        onClick={() => {
+                            window.scrollTo(0, 0);
+                            handleSearch();
+                        }}
                         sx={{   
                             mt: 2,
                             bgcolor: theme.palette.text.primary,
@@ -188,6 +191,7 @@ const NavBar: React.FC<NavBarProps> = ({ darkMode, setDarkMode, setNavbarHeight,
                                 bgcolor: theme.palette.text.secondary
                             }
                         }}
+
 
                         fullWidth
                     >
