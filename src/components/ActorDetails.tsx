@@ -94,7 +94,7 @@ const ActorDetails: React.FC = () => {
     return (
         <Box className="actor-details-container">
             <Box className="actor-data" display="flex">
-                <Box className="actor-details-text" flex={1} mr={2}>
+                <Box className="actor-details-text" flex={1} >
                     {actorDetails.biography && (
                         <Box sx={{
                             backgroundColor: 'background.paper',
